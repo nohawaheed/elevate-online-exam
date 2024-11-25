@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@400;700&display=swap");
+
+@import "styles/_variables.scss";
+@import "styles/_mixins.scss";
+
+
+body{
+    margin: 0;
+    padding: 0;
+  
+    font: {
+      optical-sizing: auto;
+      style: normal;
+  }
+}
+  .inter {
+    font-family: $font-inter;
+  }
+  .poppins {
+    font-family: $font-poppins;
+  }
+
+.inter, 
+.poppins {
+  &-400 {
+    @include fontWeight(400);
+  }
+  &-500 {
+    @include fontWeight(500);
+  }
+  &-700 {
+    @include fontWeight(700);
+  }
+}
+
+.main-color{
+  color: $main-color;
+}
+
+.logo-color{
+  color: $logo-color;
+}
+
