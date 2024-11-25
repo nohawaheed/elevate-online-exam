@@ -1,1 +1,42 @@
-<p>register works!</p>
+<div class="register flex flex-column">
+    <h2 class="register-header mb-5 mt-0">Sign up</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+      <div class="card flex w-full flex-column justify-content-center">  
+        <input class="w-full mb-5 inter inter-500" type="text" placeholder="Username" [class]="'ng-invalid ng-dirty'" pInputText formControlName="username" />
+          <app-error-message [errors]="errorMessages$" [controlName]="'username'"></app-error-message>
+        <input class="w-full mb-5 inter inter-500" type="text" placeholder="First Name" [class]="'ng-invalid ng-dirty'" pInputText formControlName="firstName" />
+          <app-error-message [errors]="errorMessages$" [controlName]="'firstName'"></app-error-message>
+        <input class="w-full mb-5 inter inter-500" type="text" placeholder="Last Name" [class]="'ng-invalid ng-dirty'" pInputText formControlName="lastName" />
+          <app-error-message [errors]="errorMessages$" [controlName]="'lastName'"></app-error-message>
+        <input class="w-full mb-5 inter inter-500" type="email" placeholder="Email" [class]="'ng-invalid ng-dirty'" pInputText formControlName="email" />
+          <app-error-message [errors]="errorMessages$" [controlName]="'email'"></app-error-message>
+        <p-password [styleClass]="'w-full mb-5'"  formControlName="password" placeholder="Password" [toggleMask]="true" ></p-password>
+          <app-error-message [errors]="errorMessages$" [controlName]="'password'"></app-error-message>
+        <p-password [styleClass]="'w-full mb-5'"  formControlName="confirmPassword" placeholder="Confirm Password" [toggleMask]="true" ></p-password>
+          <app-error-message [errors]="errorMessages$" [controlName]="'confirmPassword'"></app-error-message>
+        <input class="w-full mb-3 inter inter-500" type="text" placeholder="Phone" [class]="'ng-invalid ng-dirty'" pInputText formControlName="phone" />
+        <app-error-message [errors]="errorMessages$" [controlName]="'phone'"></app-error-message>
+        <p class=" m-auto m-0 register-hasAccount poppins poppins-400">Already have an account? <span class="register-hasAccount_login" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</span></p>
+      <app-button label="Create Account" [type]="'submit'" [disabled]="!registerForm.valid"></app-button>
+      </div>
+    </form>
+    <div>
+      <span class="register-continue inter inter-400 w-full my-5 flex align-items-center justify-content-center">
+        Or Continue with
+      </span>
+      <div class="register-social w-full flex gap-5 align-items-center justify-content-center">
+        <i class="register-social_icon">
+          <img src="assets/images/google.svg" alt="google-icon" />
+        </i>
+        <i class="register-social_icon">
+          <img src="assets/images/twitter.svg" alt="twitter-icon" />
+        </i>
+        <i class="register-social_icon">
+          <img src="assets/images/facebook.svg" alt="facebook-icon" />
+        </i>
+        <i class="register-social_icon">
+          <img src="assets/images/apple.svg" alt="apple-icon" />
+        </i>
+      </div>
+    </div>
+  </div>
