@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="login flex flex-column">
+  <h2 class="login-header mb-5 mt-0">Sign in</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <div class="card flex w-full flex-column justify-content-center">
+      <input class="w-full mb-5 inter inter-500" type="email" placeholder="Enter Email" [class]="'ng-invalid ng-dirty'" pInputText formControlName="email" />
+      <app-error-message [errors]="errorMessages$" [controlName]="'email'"></app-error-message>
+      <p-password [styleClass]="'w-full mb-3'" formControlName="password" placeholder="Password"  [toggleMask]="true" ></p-password>
+      <app-error-message [errors]="errorMessages$" [controlName]="'password'"></app-error-message>
+      <p class=" ml-auto m-0 login-forgot poppins poppins-400">Recover Password ?</p>
+      <app-button label="Sign in" [type]="'submit'" [disabled]="!loginForm.valid"></app-button>
+    </div>
+  </form>
+  <div>
+    <span class="login-continue inter inter-400 w-full my-5 flex align-items-center justify-content-center">
+      Or Continue with
+    </span>
+    <div class="login-social w-full flex gap-5 align-items-center justify-content-center">
+      <i class="login-social_icon">
+        <img src="assets/images/google.svg" alt="google-icon" />
+      </i>
+      <i class="login-social_icon">
+        <img src="assets/images/twitter.svg" alt="twitter-icon" />
+      </i>
+      <i class="login-social_icon">
+        <img src="assets/images/facebook.svg" alt="facebook-icon" />
+      </i>
+      <i class="login-social_icon">
+        <img src="assets/images/apple.svg" alt="apple-icon" />
+      </i>
+    </div>
+  </div>
+</div>
