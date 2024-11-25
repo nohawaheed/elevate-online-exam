@@ -7,12 +7,13 @@ import { ButtonComponent } from "../../../shared/components/ui/button/button.com
 import { NgxAuthApiService } from 'ngx-auth-api';
 import { ErrorMessageComponent } from "../../../shared/components/ui/error-message/error-message.component";
 import {  map, Observable, of, Subscription } from 'rxjs';
+import { AuthResponse } from './../../interfaces/auth-response';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonComponent, RouterLink, ErrorMessageComponent],
-  templateUrl: './register.component.html',
+templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent implements OnInit,OnDestroy{
@@ -114,10 +115,10 @@ export class RegisterComponent implements OnInit,OnDestroy{
   }
   submit() {
     this._ngxAuthApiService.register(this.registerForm.value).subscribe({
-      next:(res) => {
+      next:(res: AuthResponse | { message: string } ) => {
         // console.log(res);
-        if (res.message == 'sucsess') {
-        this.router.navigate(['/home']);
+        if (res.message === 'success') {
+        this.router.navigate(['login']);
         }
       },
       error:(err) => {

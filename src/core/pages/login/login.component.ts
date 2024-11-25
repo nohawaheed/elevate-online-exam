@@ -7,6 +7,7 @@ import { NgxAuthApiService } from 'ngx-auth-api';
 import { ButtonComponent } from "../../../shared/components/ui/button/button.component";
 import { map, Observable, of } from 'rxjs';
 import { ErrorMessageComponent } from "../../../shared/components/ui/error-message/error-message.component";
+import { AuthResponse } from '../../interfaces/auth-response';
 
 @Component({
   selector: 'app-login',
@@ -58,14 +59,14 @@ export class LoginComponent {
   }
   submit() {
     this._ngxAuthApiService.login(this.loginForm.value).subscribe({
-      next:(res) =>{ 
-        // console.log(res)
-        if (res.message == 'sucsess') {
-        this.router.navigate(['/login']);
+      next:(res: AuthResponse | { message: string }) =>{ 
+        // console.log(res.message,'res')
+        if (res.message === 'success') {
+        this.router.navigate(['home']);
         }
       },
       error:(err) => {
-        console.log(err)
+        // console.log(err,'err')
         this.errorMessage = err.message;
       }
     })
