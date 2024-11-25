@@ -1,0 +1,42 @@
+@import "../../../styles/_variables.scss";
+
+.header{
+    background-color: $bg-color;
+    border-radius: 0 6.25em 6.25em 0;
+    max-width: 44.25rem;
+    max-height: 64rem;
+    padding: 5em 0em 0em 5em;
+    &-content{
+        &_title{
+            max-width: 19.875rem;
+            line-height: 150%;
+        }
+        &_paragraph{
+            width: 30.125rem;
+            line-height: 2.50em;
+        }
+    }
+}
+
+.navigation{
+    padding: 5em 5em 0em 0em;
+
+}
+
+::ng-deep {
+    .p-splitbutton{
+
+        .p-button {
+            background-color: transparent;
+            color: unset;
+            padding: unset !important;
+            padding-right: 0.031rem;
+            &:focus {
+                box-shadow: unset;
+              }
+              .p-button-icon-only{
+                padding: unset;
+              }
+          }
+    } 
+}
