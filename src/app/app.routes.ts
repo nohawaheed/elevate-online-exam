@@ -22,5 +22,11 @@ export const routes: Routes = [
         },
       ] 
   },
-
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('../feature/pages/home/home.component').then(
+        (c) => c.HomeComponent
+      ),
+  }
 ];
