@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { NgxAuthApi } from './base/ngx-auth-api';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthEndpoint } from './enums/auth-endpoint';
 import { NgxAuthApiAdapter } from './adapter/ngx-auth-api.adapter';
-import { RegisterRequest, RegisterResponse ,LoginRequest, AuthResponse } from './interfaces/auth.interfaces';
+import { RegisterRequest, RegisterResponse ,LoginRequest, AuthResponse, ErrorMessage } from './interfaces/auth.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -15,17 +15,18 @@ export class NgxAuthApiService implements NgxAuthApi {
     private _authApiAdapter: NgxAuthApiAdapter
   ) {}
 
-  login(data: LoginRequest): Observable<AuthResponse | { message: string }> {
+  login(data: LoginRequest): Observable<AuthResponse> {
     return this._httpClient.post(AuthEndpoint.LOGIN, data).pipe(
       map((res) => this._authApiAdapter.adapt(res as RegisterResponse)),
-      catchError((err) => of({message: err.message }))
+      catchError((err : ErrorMessage) => throwError(() => err))
     );
   }
 
-  register(data: RegisterRequest): Observable<AuthResponse | { message: string }> {
+  register(data: RegisterRequest): Observable<AuthResponse> {
     return this._httpClient.post(AuthEndpoint.REGISTER, data).pipe(
       map((res) => this._authApiAdapter.adapt(res as RegisterResponse)),
-      catchError((err) => of({ message: err.message }))
+      catchError((err: ErrorMessage) =>
+        throwError(() => err))
     );
   }
 }

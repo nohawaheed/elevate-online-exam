@@ -3,3 +3,10 @@ export interface AuthResponse {
     token: string;
     userEmail: string;
 }
+
+export interface ErrorMessage{
+    error: {
+        message: string;
+        code: number;
+    }
+}
