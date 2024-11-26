@@ -8,11 +8,12 @@ import { ButtonComponent } from "../../../shared/components/ui/button/button.com
 import { map, Observable, of } from 'rxjs';
 import { ErrorMessageComponent } from "../../../shared/components/ui/error-message/error-message.component";
 import { AuthResponse } from '../../interfaces/auth-response';
+import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonComponent, ErrorMessageComponent],
+  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonComponent, ErrorMessageComponent, RegisterMethodsComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

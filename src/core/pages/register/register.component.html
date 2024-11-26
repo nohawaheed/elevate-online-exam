@@ -20,23 +20,5 @@
       <app-button label="Create Account" [type]="'submit'" [disabled]="!registerForm.valid"></app-button>
       </div>
     </form>
-    <div>
-      <span class="register-continue inter inter-400 w-full my-5 flex align-items-center justify-content-center">
-        Or Continue with
-      </span>
-      <div class="register-social w-full flex gap-5 align-items-center justify-content-center">
-        <i class="register-social_icon">
-          <img src="assets/images/google.svg" alt="google-icon" />
-        </i>
-        <i class="register-social_icon">
-          <img src="assets/images/twitter.svg" alt="twitter-icon" />
-        </i>
-        <i class="register-social_icon">
-          <img src="assets/images/facebook.svg" alt="facebook-icon" />
-        </i>
-        <i class="register-social_icon">
-          <img src="assets/images/apple.svg" alt="apple-icon" />
-        </i>
-      </div>
-    </div>
+  <app-register-methods></app-register-methods>
   </div>

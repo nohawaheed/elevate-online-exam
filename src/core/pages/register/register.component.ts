@@ -8,12 +8,13 @@ import { NgxAuthApiService } from 'ngx-auth-api';
 import { ErrorMessageComponent } from "../../../shared/components/ui/error-message/error-message.component";
 import {  map, Observable, of, Subscription } from 'rxjs';
 import { AuthResponse } from './../../interfaces/auth-response';
+import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonComponent, RouterLink, ErrorMessageComponent],
-templateUrl: './register.component.html',
+  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonComponent, RouterLink, ErrorMessageComponent, RegisterMethodsComponent],
+  templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent implements OnInit,OnDestroy{

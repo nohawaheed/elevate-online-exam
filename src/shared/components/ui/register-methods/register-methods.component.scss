@@ -1,0 +1,30 @@
+.methods{
+    &-continue{
+        &::after , &::before{
+            content: '';
+            width: 8.313rem;
+            height: 0.063rem;
+            background-color:#E7E7E7;
+            display: inline-block;
+        }
+        &::before{
+            margin-right: 0.438em;
+        }
+        &::after{
+            margin-left: 0.438em;
+        }
+    }
+
+    &-social{
+        width: 22.19rem;
+        &_icon{
+            width:4.06rem;
+            height: 4.00rem;
+            border-radius: 0.94rem;
+            border: 1.02px solid #E0E0E9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
