@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { NgxAuthApiService,AuthResponse,ErrorMessage } from 'ngx-auth-api';
 import { ButtonComponent } from "../../../shared/components/ui/button/button.component";
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, of, Subject, takeUntil } from 'rxjs';
 import { ErrorMessageComponent } from "../../../shared/components/ui/error-message/error-message.component";
 import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
 import { ToastModule } from 'primeng/toast';
@@ -18,10 +18,11 @@ import { MessageService } from 'primeng/api';
   styleUrl: './login.component.scss',
   providers: []
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit , OnDestroy{
   constructor(private router: Router , private _ngxAuthApiService: NgxAuthApiService, private messageService: MessageService) {}
   loginForm: FormGroup= new FormGroup({});
   errorMessages$: Observable<ValidationErrors | null> = of([]);
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   ngOnInit() {
       this.loginForm = new FormGroup({
@@ -59,16 +60,21 @@ export class LoginComponent {
     );
   }
   submit() {
-    this._ngxAuthApiService.login(this.loginForm.value).subscribe({
+    this._ngxAuthApiService.login(this.loginForm.value).pipe(takeUntil(this.destroy$)).subscribe({
       next:(res: AuthResponse) =>{ 
         if (res.message === 'success') {
         this.messageService.add({severity: 'success', summary: 'Success', detail: res.message});
-        this.router.navigate(['home']);
+        this.router.navigate(['/home']);
         }
       },
       error:(err: ErrorMessage) => {
         this.messageService.add({severity: 'error', summary: 'Error', detail: err.error.message});
       }
     })
+  }
+
+  ngOnDestroy(): void {
+      this.destroy$.next(true);
+      this.destroy$.complete();
   }
 }

@@ -6,7 +6,7 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonComponent } from "../../../shared/components/ui/button/button.component";
 import { NgxAuthApiService ,AuthResponse, ErrorMessage } from 'ngx-auth-api';
 import { ErrorMessageComponent } from "../../../shared/components/ui/error-message/error-message.component";
-import {  map, Observable, of, Subscription } from 'rxjs';
+import { map, Observable, of, Subject, takeUntil } from 'rxjs';
 import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit,OnDestroy{
   constructor(private router: Router , private _ngxAuthApiService: NgxAuthApiService , private messageService: MessageService){}
   registerForm: FormGroup= new FormGroup({});
   errorMessages$: Observable<ValidationErrors | null> = of([]);
-  updatePasswordValidation$: Subscription | undefined = new Subscription();
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   ngOnInit() {
       this.registerForm = new FormGroup({
@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit,OnDestroy{
           confirmPassword: new FormControl<string | null>(null , [Validators.required ,this.passwordMatchValidator]),
           phone: new FormControl<string | null>(null , [Validators.required , Validators.pattern("^01[0,1,2,5][0-9]{8}$")])
         });
-        this.updatePasswordValidation$ = this.registerForm.get('password')?.valueChanges.subscribe(() => {
+        this.registerForm.get('password')?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
          return this.registerForm.get('confirmPassword')?.updateValueAndValidity();
         });
         this.errorMessages$ = this.registerForm.valueChanges.pipe(
@@ -116,7 +116,7 @@ export class RegisterComponent implements OnInit,OnDestroy{
     return password === confirmPassword ? null : {passwordMismatch: {message: 'Passwords do not match'}};
   }
   submit() {
-    this._ngxAuthApiService.register(this.registerForm.value).subscribe({
+    this._ngxAuthApiService.register(this.registerForm.value).pipe(takeUntil(this.destroy$)).subscribe({
       next:(res: AuthResponse) => {
         if (res.message === 'success') {
         this.messageService.add({severity: 'success', summary: 'Success', detail: res.message});
@@ -130,7 +130,8 @@ export class RegisterComponent implements OnInit,OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.updatePasswordValidation$?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.complete();
   } 
 
 }
