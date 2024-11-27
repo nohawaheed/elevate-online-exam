@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
@@ -9,19 +9,20 @@ import { map, Observable, of } from 'rxjs';
 import { ErrorMessageComponent } from "../../../shared/components/ui/error-message/error-message.component";
 import { AuthResponse, ErrorMessage } from '../../interfaces/auth-response';
 import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonComponent, ErrorMessageComponent, RegisterMethodsComponent],
+  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonComponent, ErrorMessageComponent, RegisterMethodsComponent,RouterLink,ToastModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
+  providers: []
 })
 export class LoginComponent {
-  constructor(private router: Router , private _ngxAuthApiService: NgxAuthApiService) {}
+  constructor(private router: Router , private _ngxAuthApiService: NgxAuthApiService, private messageService: MessageService) {}
   loginForm: FormGroup= new FormGroup({});
   errorMessages$: Observable<ValidationErrors | null> = of([]);
-  errorMessage: string = '';
 
   ngOnInit() {
       this.loginForm = new FormGroup({
@@ -62,11 +63,12 @@ export class LoginComponent {
     this._ngxAuthApiService.login(this.loginForm.value).subscribe({
       next:(res: AuthResponse) =>{ 
         if (res.message === 'success') {
+        this.messageService.add({severity: 'success', summary: 'Success', detail: res.message});
         this.router.navigate(['home']);
         }
       },
       error:(err: ErrorMessage) => {
-        this.errorMessage = err.error.message;
+        this.messageService.add({severity: 'error', summary: 'Error', detail: err.error.message});
       }
     })
   }

@@ -9,20 +9,22 @@ import { ErrorMessageComponent } from "../../../shared/components/ui/error-messa
 import {  map, Observable, of, Subscription } from 'rxjs';
 import { AuthResponse, ErrorMessage } from './../../interfaces/auth-response';
 import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonComponent, RouterLink, ErrorMessageComponent, RegisterMethodsComponent],
+  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonComponent, RouterLink, ErrorMessageComponent, RegisterMethodsComponent, ToastModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
+  providers: []
 })
 export class RegisterComponent implements OnInit,OnDestroy{
-  constructor(private router: Router , private _ngxAuthApiService: NgxAuthApiService){}
+  constructor(private router: Router , private _ngxAuthApiService: NgxAuthApiService , private messageService: MessageService){}
   registerForm: FormGroup= new FormGroup({});
   errorMessages$: Observable<ValidationErrors | null> = of([]);
   updatePasswordValidation$: Subscription | undefined = new Subscription();
-  errorMessage: string = '';
 
   ngOnInit() {
       this.registerForm = new FormGroup({
@@ -116,13 +118,14 @@ export class RegisterComponent implements OnInit,OnDestroy{
   }
   submit() {
     this._ngxAuthApiService.register(this.registerForm.value).subscribe({
-      next:(res: AuthResponse | { message: string } ) => {
+      next:(res: AuthResponse) => {
         if (res.message === 'success') {
+        this.messageService.add({severity: 'success', summary: 'Success', detail: res.message});
         this.router.navigate(['login']);
         }
       },
       error:(err: ErrorMessage) => {
-        this.errorMessage = err.error.message;
+        this.messageService.add({severity: 'error', summary: 'Error', detail: err.error.message});
       }
     });
   }

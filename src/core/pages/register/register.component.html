@@ -1,5 +1,6 @@
 <div class="register flex flex-column">
     <h2 class="register-header mb-5 mt-0">Sign up</h2>
+    <p-toast position="top-center"/>
     <form [formGroup]="registerForm" (ngSubmit)="submit()">
       <div class="card flex w-full flex-column justify-content-center">  
         <input class="w-full mb-5 inter inter-500" type="text" placeholder="Username" [class]="'ng-invalid ng-dirty'" pInputText formControlName="username" />

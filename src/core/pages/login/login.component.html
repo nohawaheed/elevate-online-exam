@@ -1,5 +1,6 @@
 <div class="login flex flex-column">
   <h2 class="login-header mb-5 mt-0">Sign in</h2>
+  <p-toast position="top-center"/>
   <form [formGroup]="loginForm" (ngSubmit)="submit()">
     <div class="card flex w-full flex-column justify-content-center">
       <input class="w-full mb-5 inter inter-500" type="email" placeholder="Enter Email" [class]="'ng-invalid ng-dirty'" pInputText formControlName="email" />
