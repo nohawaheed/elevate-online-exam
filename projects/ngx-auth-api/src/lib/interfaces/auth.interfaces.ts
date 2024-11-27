@@ -42,10 +42,18 @@ export interface ErrorMessage {
 }
 
 export interface RecoverPasswordRequest {
- email: string;
+email: string;
 }
 
 export interface RecoverPasswordResponse {
   message: string;
   info: string;
+}
+
+export interface VerifyCodeRequest {
+  resetCode: string;
+}
+
+export interface VerifyCodeResponse {
+  status: string;
 }
