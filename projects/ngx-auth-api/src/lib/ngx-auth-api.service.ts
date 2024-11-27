@@ -4,7 +4,7 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthEndpoint } from './enums/auth-endpoint';
 import { NgxAuthApiAdapter } from './adapter/ngx-auth-api.adapter';
-import { RegisterRequest, RegisterResponse ,LoginRequest, AuthResponse, ErrorMessage } from './interfaces/auth.interfaces';
+import { RegisterRequest, RegisterResponse, LoginRequest, AuthResponse, ErrorMessage, RecoverPasswordResponse, RecoverPasswordRequest } from './interfaces/auth.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +27,13 @@ export class NgxAuthApiService implements NgxAuthApi {
       map((res) => this._authApiAdapter.adapt(res as RegisterResponse)),
       catchError((err: ErrorMessage) =>
         throwError(() => err))
+    );
+  }
+
+  recoverPassword(data: RecoverPasswordRequest): Observable<RecoverPasswordResponse> {
+    return this._httpClient.post(AuthEndpoint.FORGET_PASSWORD, data).pipe(
+      map((res) => res as RecoverPasswordResponse),
+      catchError((err:ErrorMessage) => throwError(()=> err))
     );
   }
 }

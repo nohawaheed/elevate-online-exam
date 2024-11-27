@@ -40,3 +40,12 @@ export interface ErrorMessage {
         code: number;
     }
 }
+
+export interface RecoverPasswordRequest {
+ email: string;
+}
+
+export interface RecoverPasswordResponse {
+  message: string;
+  info: string;
+}
