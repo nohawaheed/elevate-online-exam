@@ -4,10 +4,9 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule, AbstractContro
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonComponent } from "../../../shared/components/ui/button/button.component";
-import { NgxAuthApiService } from 'ngx-auth-api';
+import { NgxAuthApiService ,AuthResponse, ErrorMessage } from 'ngx-auth-api';
 import { ErrorMessageComponent } from "../../../shared/components/ui/error-message/error-message.component";
 import {  map, Observable, of, Subscription } from 'rxjs';
-import { AuthResponse, ErrorMessage } from './../../interfaces/auth-response';
 import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
