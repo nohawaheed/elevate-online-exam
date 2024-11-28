@@ -120,7 +120,9 @@ export class RegisterComponent implements OnInit,OnDestroy{
       next:(res: AuthResponse) => {
         if (res.message === 'success') {
         this.messageService.add({severity: 'success', summary: 'Success', detail: res.message});
-        this.router.navigate(['login']);
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          },2000);
         }
       },
       error:(err: ErrorMessage) => {

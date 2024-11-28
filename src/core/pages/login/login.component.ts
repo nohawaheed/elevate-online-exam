@@ -63,8 +63,10 @@ export class LoginComponent implements OnInit , OnDestroy{
     this._ngxAuthApiService.login(this.loginForm.value).pipe(takeUntil(this.destroy$)).subscribe({
       next:(res: AuthResponse) =>{ 
         if (res.message === 'success') {
-        this.messageService.add({severity: 'success', summary: 'Success', detail: res.message});
-        this.router.navigate(['/home']);
+          this.messageService.add({severity: 'success', summary: 'Success', detail: res.message});
+          setTimeout(() => {
+            this.router.navigate(['/home']);
+          },2000);
         }
       },
       error:(err: ErrorMessage) => {
