@@ -1,0 +1,13 @@
+<div class="verify flex flex-column">
+    <h2 class="mb-5 mt-0">Verify code</h2>
+    <p-toast position="top-center"/>
+    <form [formGroup]="verifyForm" (ngSubmit)="submit()">
+      <div class="card flex w-full flex-column justify-content-center">
+        <input class="w-full mb-5 inter inter-500" type="string" placeholder="Enter Code" [class]="'ng-invalid ng-dirty'" pInputText formControlName="resetCode" />
+        <app-error-message [errors]="errorMessages$" [controlName]="'resetCode'"></app-error-message>
+        <p class="ml-auto m-0 verify-code poppins poppins-400">Didn’t receive a code? <button class="verify-code_resend" type="button" (click)="resendCode()">Resend</button></p>
+        <app-button label="Verify" [type]="'submit'" [disabled]="!verifyForm.valid"></app-button>
+      </div>
+    </form>
+    <app-register-methods></app-register-methods>
+</div>
