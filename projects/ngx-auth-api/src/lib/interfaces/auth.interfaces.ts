@@ -57,3 +57,12 @@ export interface VerifyCodeRequest {
 export interface VerifyCodeResponse {
   status: string;
 }
+
+export interface resetPasswordRequest {
+    email: string;
+    newPassword: string;
+}
+export interface resetPasswordResponse {
+    message: string;
+    token: string;
+}

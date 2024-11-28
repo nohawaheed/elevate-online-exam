@@ -4,7 +4,7 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthEndpoint } from './enums/auth-endpoint';
 import { NgxAuthApiAdapter } from './adapter/ngx-auth-api.adapter';
-import { RegisterRequest, RegisterResponse, LoginRequest, AuthResponse, ErrorMessage, RecoverPasswordResponse, RecoverPasswordRequest, VerifyCodeResponse, VerifyCodeRequest } from './interfaces/auth.interfaces';
+import { RegisterRequest, RegisterResponse, LoginRequest, AuthResponse, ErrorMessage, RecoverPasswordResponse, RecoverPasswordRequest, VerifyCodeResponse, VerifyCodeRequest, resetPasswordRequest, resetPasswordResponse } from './interfaces/auth.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -42,5 +42,12 @@ export class NgxAuthApiService implements NgxAuthApi {
       map((res) => res as VerifyCodeResponse),
       catchError((err:ErrorMessage) => throwError(()=> err))
     );
+  }
+
+  resetPassword(data: resetPasswordRequest): Observable<resetPasswordResponse> {
+      return this._httpClient.put(AuthEndpoint.RESET_PASSWORD, data).pipe(
+        map((res) => res as resetPasswordResponse),
+        catchError((err:ErrorMessage) => throwError(()=> err))
+      )
   }
 }
