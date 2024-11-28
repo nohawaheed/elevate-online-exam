@@ -17,7 +17,7 @@
           <app-error-message [errors]="errorMessages$" [controlName]="'confirmPassword'"></app-error-message>
         <input class="w-full mb-3 inter inter-500" type="text" placeholder="Phone" [class]="'ng-invalid ng-dirty'" pInputText formControlName="phone" />
         <app-error-message [errors]="errorMessages$" [controlName]="'phone'"></app-error-message>
-        <p class=" m-auto m-0 register-hasAccount poppins poppins-400">Already have an account? <span class="register-hasAccount_login" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</span></p>
+        <p class=" m-auto m-0 register-hasAccount poppins poppins-400">Already have an account? <span class="register-hasAccount_login" [routerLink]="['/login']">Login</span></p>
       <app-button label="Create Account" [type]="'submit'" [disabled]="!registerForm.valid"></app-button>
       </div>
     </form>
