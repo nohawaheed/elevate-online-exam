@@ -7,7 +7,7 @@
       <app-error-message [errors]="errorMessages$" [controlName]="'email'"></app-error-message>
       <p-password [styleClass]="'w-full mb-3'" formControlName="password" placeholder="Password"  [toggleMask]="true" ></p-password>
       <app-error-message [errors]="errorMessages$" [controlName]="'password'"></app-error-message>
-      <p class=" ml-auto m-0 login-forgot poppins poppins-400">Recover Password ?</p>
+      <a class="ml-auto m-0 login-forgot poppins poppins-400" [routerLink]="['/forgot-password']">Recover Password ?</a>
       <app-button label="Sign in" [type]="'submit'" [disabled]="!loginForm.valid"></app-button>
     </div>
   </form>
