@@ -7,7 +7,15 @@
       <app-error-message [errors]="errorMessages$" [controlName]="'email'"></app-error-message>
       <p-password [styleClass]="'w-full mb-3'" formControlName="password" placeholder="Password"  [toggleMask]="true" ></p-password>
       <app-error-message [errors]="errorMessages$" [controlName]="'password'"></app-error-message>
-      <a class="ml-auto m-0 login-forgot poppins poppins-400" [routerLink]="['/forgot-password']">Recover Password ?</a>
+      <div class="flex justify-content-between align-items-start">
+          <p-checkbox 
+          value="true"
+          [(ngModel)]="rememberMe"
+          [ngModelOptions]="{standalone: true}"
+          inputId="rm" 
+          label="Remember me" />
+        <a class="login-forgot poppins poppins-400" [routerLink]="['/forgot-password']">Recover Password ?</a>
+      </div>
       <app-button label="Sign in" [type]="'submit'" [disabled]="!loginForm.valid"></app-button>
     </div>
   </form>

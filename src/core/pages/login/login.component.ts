@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule, ValidationErrors, FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { NgxAuthApiService,AuthResponse,ErrorMessage } from 'ngx-auth-api';
@@ -10,19 +10,22 @@ import { ErrorMessageComponent } from "../../../shared/components/ui/error-messa
 import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { AuthService } from '../../services/auth.service';
+import { CheckboxModule } from 'primeng/checkbox';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonComponent, ErrorMessageComponent, RegisterMethodsComponent,RouterLink,ToastModule],
+  imports: [ReactiveFormsModule,FormsModule, InputTextModule, PasswordModule, ButtonComponent, ErrorMessageComponent, RegisterMethodsComponent,RouterLink,ToastModule,CheckboxModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   providers: []
 })
 export class LoginComponent implements OnInit , OnDestroy{
-  constructor(private router: Router , private _ngxAuthApiService: NgxAuthApiService, private messageService: MessageService) {}
+  constructor(private router: Router , private _ngxAuthApiService: NgxAuthApiService, private messageService: MessageService, private _authService: AuthService) {}
   loginForm: FormGroup= new FormGroup({});
   errorMessages$: Observable<ValidationErrors | null> = of([]);
   destroy$: Subject<boolean> = new Subject<boolean>();
+  rememberMe: boolean = false;
 
   ngOnInit() {
       this.loginForm = new FormGroup({
@@ -65,6 +68,7 @@ export class LoginComponent implements OnInit , OnDestroy{
         if (res.message === 'success') {
           this.messageService.add({severity: 'success', summary: 'Success', detail: res.message});
           setTimeout(() => {
+            this._authService.saveUserToken(this.rememberMe,res.token);
             this.router.navigate(['/home']);
           },2000);
         }
