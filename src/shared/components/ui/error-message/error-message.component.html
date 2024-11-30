@@ -1,9 +1,6 @@
-@for(message of messages; track $index){
-    @if(controlName == message['controlName']){
-        <p-messages  severity="error">
-            <ng-template pTemplate>
-                <div class="ml-2">{{message['message']}}</div>
-            </ng-template>
-        </p-messages>
-    }
-}
+<p-messages  severity="error">
+    <ng-template pTemplate>
+        <div>{{message}}</div>
+    </ng-template>
+</p-messages>
+

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule,Validators } from '@angular/forms';
 import { ButtonComponent } from "../../../shared/components/ui/button/button.component";
 import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
 import { ErrorMessageComponent } from "../../../shared/components/ui/error-message/error-message.component";
-import { map, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 import { InputTextModule } from 'primeng/inputtext';
 import { ErrorMessage, NgxAuthApiService, RecoverPasswordResponse, VerifyCodeResponse } from 'ngx-auth-api';
 import { MessageService } from 'primeng/api';
@@ -22,31 +22,11 @@ export class VerifyCodeComponent implements OnInit, OnDestroy {
   constructor(private _ngxAuthApiService: NgxAuthApiService, private messageService:MessageService, private router: Router, private authService: AuthService){}
 
   verifyForm: FormGroup = new FormGroup({});
-  errorMessages$: Observable<ValidationErrors | null> = of({});
   destroy$: Subject<boolean> = new Subject<boolean>();
   ngOnInit(): void {
     this.verifyForm = new FormGroup({
       resetCode : new FormControl<string | null>(null , [Validators.required, Validators.pattern(/^[0-9]{6}$/)]),
     });
-
-    this.errorMessages$ = this.verifyForm.statusChanges.pipe(
-      map(status => {
-        if (status === 'VALID') {
-          return null;
-        }else{
-          const control  = this.verifyForm?.controls['resetCode'];
-          const errors = [];
-          if(control?.dirty && control?.errors){
-            if ('pattern' in control.errors){
-              errors.push({controlName:'resetCode', message: 'Please enter a valid code'}); 
-            }else if ('required' in control.errors){
-              errors.push({ controlName:'resetCode', message: 'Code is required'}); 
-            }
-          }            
-          return errors;
-        }
-      })
-    );
   }
   submit(){
     this._ngxAuthApiService.verifyCode(this.verifyForm.value).subscribe({
