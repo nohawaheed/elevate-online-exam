@@ -58,11 +58,11 @@ export interface VerifyCodeResponse {
   status: string;
 }
 
-export interface resetPasswordRequest {
+export interface ResetPasswordRequest {
     email: string;
     newPassword: string;
 }
-export interface resetPasswordResponse {
+export interface ResetPasswordResponse {
     message: string;
     token: string;
 }
