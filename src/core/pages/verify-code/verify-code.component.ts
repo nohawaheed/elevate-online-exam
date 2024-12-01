@@ -34,7 +34,7 @@ export class VerifyCodeComponent implements OnInit, OnDestroy {
         if(res.status === 'Success'){
           this.messageService.add({severity: 'success', summary: 'Success', detail: res.status});
           setTimeout(() => {
-            this.router.navigate(['/set-password']);
+            this.router.navigate(['/reset-password']);
           },2000)
         } 
       },

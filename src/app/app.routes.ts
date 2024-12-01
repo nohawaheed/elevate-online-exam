@@ -35,10 +35,11 @@ export const routes: Routes = [
           )
         },
         {
-          path: 'set-password',
+          path: 'reset-password',
+
           loadComponent: () => 
-            import('../core/pages/set-password/set-password.component').then(
-              (c) => c.SetPasswordComponent
+            import('../core/pages/reset-password/reset-password.component').then(
+              (c) => c.ResetPasswordComponent
           )
         }
       ] 
