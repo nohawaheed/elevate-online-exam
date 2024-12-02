@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -48,4 +49,14 @@ export class AuthService {
 
     }
   }
+
+  passwordMatchValidator(): ValidatorFn {
+    return (control: AbstractControl) : ValidationErrors | null => {
+      const formGroup = control.parent;
+      const password = formGroup?.get('password')?.value;
+      const confirmPassword = control.value;
+      return password === confirmPassword ? null : {passwordMismatch: {message: 'Passwords do not match'}};
+    }
+  }
+  
 }
