@@ -4,7 +4,7 @@ import { ErrorMessageComponent } from "../../../shared/components/ui/error-messa
 import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
 import { ToastModule } from 'primeng/toast';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { PasswordModule } from 'primeng/password';
 import { NgxAuthApiService, ResetPasswordResponse } from 'ngx-auth-api';
 import { MessageService } from 'primeng/api';
@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-set-password',
   standalone: true,
-  imports: [ReactiveFormsModule,ButtonComponent,PasswordModule, ErrorMessageComponent, RegisterMethodsComponent, ToastModule, RouterLink],
+  imports: [ReactiveFormsModule,ButtonComponent,PasswordModule, ErrorMessageComponent, RegisterMethodsComponent, ToastModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })
