@@ -27,7 +27,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.resetPasswordForm = new FormGroup({
-      password: new FormControl<string | null>(null,[Validators.required,Validators.pattern(/^(?=.*[A-Za-z])(?=.*[@$!%*#?&^_-]).{6,}/)]),
+      password: new FormControl<string | null>(null,[Validators.required,Validators.pattern(/^(?=.*[A-Za-z])(?=.*[@$!%*#?&^_-]).{8,}/)]),
       rePassword: new FormControl<string | null>(null,[Validators.required, this._authService.passwordMatchValidator()]),
     });
 

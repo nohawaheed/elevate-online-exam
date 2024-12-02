@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit,OnDestroy{
           firstName: new FormControl<string | null>(null , [Validators.required,Validators.minLength(4),Validators.maxLength(20)]) ,
           lastName: new FormControl<string | null>(null , [Validators.required,Validators.minLength(4),Validators.maxLength(20)]) ,
           email: new FormControl<string | null>(null , [Validators.email , Validators.required]) ,
-          password: new FormControl<string | null>(null , [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*[@$!%*#?&^_-]).{6,}/)]),
+          password: new FormControl<string | null>(null , [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*[@$!%*#?&^_-]).{8,}/)]),
           confirmPassword: new FormControl<string | null>(null , [Validators.required ,this._authService.passwordMatchValidator()]),
           phone: new FormControl<string | null>(null , [Validators.required , Validators.pattern("^01[0,1,2,5][0-9]{8}$")])
         });
