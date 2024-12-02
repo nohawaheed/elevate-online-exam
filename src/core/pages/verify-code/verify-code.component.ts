@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule,Validators } from '@angular
 import { ButtonComponent } from "../../../shared/components/ui/button/button.component";
 import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
 import { ErrorMessageComponent } from "../../../shared/components/ui/error-message/error-message.component";
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { Subject, Subscription, switchMap, take, takeUntil, timer } from 'rxjs';
 import { InputTextModule } from 'primeng/inputtext';
 import { ErrorMessage, NgxAuthApiService, RecoverPasswordResponse, VerifyCodeResponse } from 'ngx-auth-api';
 import { MessageService } from 'primeng/api';
@@ -25,10 +25,21 @@ export class VerifyCodeComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   resendLoading: boolean = false
   verifyLoading: boolean = false
+  count: number = 60;
   ngOnInit(): void {
     this.verifyForm = new FormGroup({
       resetCode : new FormControl<string | null>(null , [Validators.required, Validators.pattern(/^[0-9]{6}$/)]),
     });
+    if(this.authService.isPlatformBrowser()){
+      timer(0, 1000).pipe(
+        takeUntil(this.destroy$),
+        take(60)
+    ).subscribe(() =>  {
+      this.count--;
+    });
+    }else{
+      return;
+    }
   }
   submit(){
     this.verifyLoading = true;
