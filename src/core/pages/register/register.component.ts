@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit,OnDestroy{
   constructor(private router: Router , private _ngxAuthApiService: NgxAuthApiService , private messageService: MessageService){}
   registerForm: FormGroup= new FormGroup({});
   destroy$: Subject<boolean> = new Subject<boolean>();
+  loading: boolean = false;
 
   ngOnInit() {
       this.registerForm = new FormGroup({
@@ -45,9 +46,11 @@ export class RegisterComponent implements OnInit,OnDestroy{
     return password === confirmPassword ? null : {passwordMismatch: {message: 'Passwords do not match'}};
   }
   submit() {
+    this.loading = true;
     this._ngxAuthApiService.register(this.registerForm.value).pipe(takeUntil(this.destroy$)).subscribe({
       next:(res: AuthResponse) => {
         if (res.message === 'success') {
+        this.loading = false;
         this.messageService.add({severity: 'success', summary: 'Success', detail: res.message});
           setTimeout(() => {
             this.router.navigate(['/login']);
@@ -55,6 +58,7 @@ export class RegisterComponent implements OnInit,OnDestroy{
         }
       },
       error:(err: ErrorMessage) => {
+        this.loading = false;
         this.messageService.add({severity: 'error', summary: 'Error', detail: err.error.message});
       }
     });

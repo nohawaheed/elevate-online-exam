@@ -24,6 +24,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
   forgotPasswordForm : FormGroup = new FormGroup({});
   destroy$: Subject<boolean> = new Subject<boolean>();
+  loading: boolean = false;
 
   ngOnInit(): void {
       this.forgotPasswordForm = new FormGroup({
@@ -32,10 +33,12 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   submit(){
+    this.loading = true;
    this.authService.setEmail(this.forgotPasswordForm.value.email);
    this._ngxAuthApiService.recoverPassword(this.forgotPasswordForm.value).pipe(takeUntil(this.destroy$)).subscribe({
      next:(res: RecoverPasswordResponse) => {
         if(res.message === 'success'){
+          this.loading = false;
           this.messageService.add({severity: 'success', summary: 'Success', detail: res.info});
           setTimeout(() => {
             this.router.navigate(['/verify-code']);
@@ -43,6 +46,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         }
       },
       error:(err: ErrorMessage) => {
+       this.loading = false;
        this.messageService.add({severity: 'error', summary: 'Error', detail: err.error.message});
       }
     });

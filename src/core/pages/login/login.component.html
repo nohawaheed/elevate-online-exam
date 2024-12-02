@@ -12,7 +12,7 @@
         }
       }
       <p-password [styleClass]="'w-full mb-3'" formControlName="password" placeholder="Password"  [toggleMask]="true" ></p-password>
-      @if(loginForm.get('password')?.errors && loginForm.get('password')?.touched || loginForm.get('password')?.errors && loginForm.get('password')?.dirty){
+      @if(loginForm.get('password')?.errors && loginForm.get('password')?.touched || loginForm.get('password')?.errors && loginForm.get('password')?.dirty){  
         @if(loginForm.get('password')?.errors?.['pattern']){
           <app-error-message [message]="'Password must be at least 6 characters long and contain at least one letter and one special character'"></app-error-message>
         }@else if(loginForm.get('password')?.errors?.['required']){
@@ -28,7 +28,7 @@
           label="Remember me" />
         <a class="login-forgot poppins poppins-400" [routerLink]="['/forgot-password']">Recover Password ?</a>
       </div>
-      <app-button label="Sign in" [type]="'submit'" [disabled]="!loginForm.valid"></app-button>
+      <app-button label="Sign in" [type]="'submit'" [loading]="loading" [disabled]="!loginForm.valid"></app-button>
     </div>
   </form>
  <app-register-methods></app-register-methods>

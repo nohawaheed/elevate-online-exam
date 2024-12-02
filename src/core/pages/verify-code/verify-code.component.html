@@ -11,8 +11,10 @@
             <app-error-message [message]="'Code is required'"></app-error-message>
           }
         }
-        <p class="ml-auto m-0 verify-code poppins poppins-400">Didn’t receive a code? <button class="verify-code_resend" type="button" (click)="resendCode()">Resend</button></p>
-        <app-button label="Verify" [type]="'submit'" [disabled]="!verifyForm.valid"></app-button>
+        <p class="ml-auto m-0 verify-code poppins poppins-400">Didn’t receive a code? 
+          <app-button [label]="'Resend'" [type]="'button'" [width]="'fit-content'" [loading]="resendLoading" [disabled]="false" (buttonClicked)="resendCode()" [padding]="'0'" [background]="'transparent'" [color]="'#4461F2'"></app-button>
+        </p>
+        <app-button label="Verify" [type]="'submit'" [loading]="verifyLoading" [disabled]="!verifyForm.valid"></app-button>
       </div>
     </form>
     <app-register-methods></app-register-methods>

@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit , OnDestroy{
   loginForm: FormGroup= new FormGroup({});
   destroy$: Subject<boolean> = new Subject<boolean>();
   rememberMe: boolean = false;
+  loading: boolean = false;
 
   ngOnInit() {
       this.loginForm = new FormGroup({
@@ -33,9 +34,11 @@ export class LoginComponent implements OnInit , OnDestroy{
       });
   }
   submit() {
+    this.loading = true;
     this._ngxAuthApiService.login(this.loginForm.value).pipe(takeUntil(this.destroy$)).subscribe({
       next:(res: AuthResponse) =>{ 
         if (res.message === 'success') {
+          this.loading = false;
           this.messageService.add({severity: 'success', summary: 'Success', detail: res.message});
           setTimeout(() => {
             this._authService.saveUserToken(this.rememberMe,res.token);
@@ -44,6 +47,7 @@ export class LoginComponent implements OnInit , OnDestroy{
         }
       },
       error:(err: ErrorMessage) => {
+        this.loading = false;
         this.messageService.add({severity: 'error', summary: 'Error', detail: err.error.message});
       }
     })

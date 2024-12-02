@@ -23,15 +23,19 @@ export class VerifyCodeComponent implements OnInit, OnDestroy {
 
   verifyForm: FormGroup = new FormGroup({});
   destroy$: Subject<boolean> = new Subject<boolean>();
+  resendLoading: boolean = false
+  verifyLoading: boolean = false
   ngOnInit(): void {
     this.verifyForm = new FormGroup({
       resetCode : new FormControl<string | null>(null , [Validators.required, Validators.pattern(/^[0-9]{6}$/)]),
     });
   }
   submit(){
+    this.verifyLoading = true;
     this._ngxAuthApiService.verifyCode(this.verifyForm.value).subscribe({
       next:(res: VerifyCodeResponse) => {
         if(res.status === 'Success'){
+          this.verifyLoading = false;
           this.messageService.add({severity: 'success', summary: 'Success', detail: res.status});
           setTimeout(() => {
             this.router.navigate(['/reset-password']);
@@ -39,12 +43,14 @@ export class VerifyCodeComponent implements OnInit, OnDestroy {
         } 
       },
       error:(err: ErrorMessage) => {
+        this.verifyLoading = false;
         this.messageService.add({severity: 'error', summary: 'Error', detail: err.error.message});
       }
     });
   }
 
   resendCode(){
+    this.resendLoading = true;
     this.authService.getEmail().pipe(
     takeUntil(this.destroy$),
     switchMap(email => this._ngxAuthApiService.recoverPassword({"email": email}).pipe(
@@ -52,10 +58,12 @@ export class VerifyCodeComponent implements OnInit, OnDestroy {
     ))).subscribe({
       next:(res: RecoverPasswordResponse) => {
        if(res.message === 'success'){
+          this.resendLoading = false;
           this.messageService.add({severity: 'success', summary: 'Success', detail: res.info});
          }
        },
        error:(err: ErrorMessage) => {
+        this.resendLoading = false;
         this.messageService.add({severity: 'error', summary: 'Error', detail: err.error.message});
        }
     });
