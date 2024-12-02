@@ -4,12 +4,12 @@
     p-button{
         ::ng-deep{
             .p-button {
-                    background: $main-color !important;
-                    // width: 100%;
-                    // padding: 1rem 0rem;
+                    justify-content: center;
+                    align-items: center;
                     .p-button-label{
                         font-family: $font-poppins !important;
                         font-weight: $font-w-400 !important;
+                        flex: unset;
                     }
                 }
         }

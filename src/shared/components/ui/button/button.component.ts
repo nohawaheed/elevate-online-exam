@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [ButtonModule, CommonModule ],
+  imports: [ButtonModule, CommonModule],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })
@@ -14,6 +14,9 @@ export class ButtonComponent {
   @Input() type : string = 'button';
   @Input() padding : string = '1rem 0rem';
   @Input() width : string = '100%';
+  @Input() background : string = '#4461f2';
+  @Input() color : string = '#fff';
+  @Input() loading : boolean = false;
   disabled : InputSignal<boolean>  = input.required<boolean>();
   buttonClicked = output<boolean>();
 
