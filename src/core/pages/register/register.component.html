@@ -5,7 +5,7 @@
       <div class="card flex w-full flex-column justify-content-center">  
         <input class="w-full mb-5 inter inter-500" type="text" placeholder="Username" [class]="'ng-invalid ng-dirty'" pInputText formControlName="username" />
         @if(registerForm.get('username')?.errors && registerForm.get('username')?.touched || registerForm.get('username')?.errors && registerForm.get('username')?.dirty){
-          @if(registerForm.get('username')?.errors?.['username']?.['minlength']){
+          @if(registerForm.get('username')?.errors?.['minlength']){
             <app-error-message [message]="'Username must be at least 4 characters long'"></app-error-message>
           }@else if(registerForm.get('username')?.errors?.['maxlength']){
             <app-error-message [message]="'Username must be at most 25 characters long'"></app-error-message>
