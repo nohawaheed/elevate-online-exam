@@ -10,11 +10,13 @@ import { NgxAuthApiService, ErrorMessage, RecoverPasswordResponse } from 'ngx-au
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from '../../services/auth.service';
+import { VerifyCodeComponent } from "../verify-code/verify-code.component";
+import { ResetPasswordComponent } from "../reset-password/reset-password.component";
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [ReactiveFormsModule, ErrorMessageComponent, ButtonComponent, RegisterMethodsComponent, InputTextModule ,RouterLink, ToastModule],
+  imports: [ReactiveFormsModule, ErrorMessageComponent, ButtonComponent, RegisterMethodsComponent, InputTextModule, RouterLink, ToastModule, VerifyCodeComponent, ResetPasswordComponent],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss'
 })
@@ -25,6 +27,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPasswordForm : FormGroup = new FormGroup({});
   destroy$: Subject<boolean> = new Subject<boolean>();
   loading: boolean = false;
+  currentStep: number = 1;
 
   ngOnInit(): void {
       this.forgotPasswordForm = new FormGroup({
@@ -33,16 +36,15 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   submit(){
-    this.loading = true;
-   this.authService.setEmail(this.forgotPasswordForm.value.email);
+   this.loading = true;
    this._ngxAuthApiService.recoverPassword(this.forgotPasswordForm.value).pipe(takeUntil(this.destroy$)).subscribe({
      next:(res: RecoverPasswordResponse) => {
         if(res.message === 'success'){
           this.loading = false;
           this.messageService.add({severity: 'success', summary: 'Success', detail: res.info});
           setTimeout(() => {
-            this.router.navigate(['/verify-code']);
-          }, 2000);
+            this.nextStep(2);
+            },2000)
         }
       },
       error:(err: ErrorMessage) => {
@@ -50,6 +52,10 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
        this.messageService.add({severity: 'error', summary: 'Error', detail: err.error.message});
       }
     });
+  }
+
+  nextStep(step: number){
+    this.currentStep = step;
   }
 
   ngOnDestroy(): void {

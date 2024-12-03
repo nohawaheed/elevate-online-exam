@@ -1,7 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +9,6 @@ export class AuthService {
 
   constructor( @Inject(PLATFORM_ID) private platformId: Object) {}
   isPlatformBrowser = () => isPlatformBrowser(this.platformId);
-  private email: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
-  getEmail(): Observable<string> {
-    return this.email.asObservable();
-  }
-  setEmail(email: string): void {
-    this.email.next(email);
-  }
 
   saveUserToken(rememberMe: boolean, token: string): void {
     if (this.isPlatformBrowser()) {

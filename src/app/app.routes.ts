@@ -27,21 +27,6 @@ export const routes: Routes = [
               (c) => c.ForgotPasswordComponent
           )
         },
-        {
-          path: 'verify-code',
-          loadComponent: () => 
-            import('../core/pages/verify-code/verify-code.component').then(
-              (c) => c.VerifyCodeComponent
-          )
-        },
-        {
-          path: 'reset-password',
-
-          loadComponent: () => 
-            import('../core/pages/reset-password/reset-password.component').then(
-              (c) => c.ResetPasswordComponent
-          )
-        }
       ] 
   },
   {

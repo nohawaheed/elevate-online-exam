@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, input, InputSignal, OnDestroy, OnInit, output, OutputEmitterRef } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule,Validators } from '@angular/forms';
 import { ButtonComponent } from "../../../shared/components/ui/button/button.component";
 import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
@@ -26,6 +26,10 @@ export class VerifyCodeComponent implements OnInit, OnDestroy {
   resendLoading: boolean = false
   verifyLoading: boolean = false
   count: number = 60;
+  nextStep: OutputEmitterRef<number> = output<number>();
+  email: InputSignal<string> = input.required<string>();
+
+
   ngOnInit(): void {
     this.verifyForm = new FormGroup({
       resetCode : new FormControl<string | null>(null , [Validators.required, Validators.pattern(/^[0-9]{6}$/)]),
@@ -49,7 +53,7 @@ export class VerifyCodeComponent implements OnInit, OnDestroy {
           this.verifyLoading = false;
           this.messageService.add({severity: 'success', summary: 'Success', detail: res.status});
           setTimeout(() => {
-            this.router.navigate(['/reset-password']);
+          this.nextStep.emit(3);
           },2000)
         } 
       },
@@ -62,11 +66,9 @@ export class VerifyCodeComponent implements OnInit, OnDestroy {
 
   resendCode(){
     this.resendLoading = true;
-    this.authService.getEmail().pipe(
-    takeUntil(this.destroy$),
-    switchMap(email => this._ngxAuthApiService.recoverPassword({"email": email}).pipe(
+   this._ngxAuthApiService.recoverPassword({"email": this.email()}).pipe(
     takeUntil(this.destroy$)  
-    ))).subscribe({
+    ).subscribe({
       next:(res: RecoverPasswordResponse) => {
        if(res.message === 'success'){
           this.resendLoading = false;

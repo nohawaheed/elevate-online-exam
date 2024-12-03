@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, input, InputSignal, OnDestroy, OnInit } from '@angular/core';
 import { ButtonComponent } from "../../../shared/components/ui/button/button.component";
 import { ErrorMessageComponent } from "../../../shared/components/ui/error-message/error-message.component";
 import { RegisterMethodsComponent } from "../../../shared/components/ui/register-methods/register-methods.component";
@@ -12,7 +12,7 @@ import { Subject, switchMap, takeUntil } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-set-password',
+  selector: 'app-reset-password',
   standalone: true,
   imports: [ReactiveFormsModule,ButtonComponent,PasswordModule, ErrorMessageComponent, RegisterMethodsComponent, ToastModule],
   templateUrl: './reset-password.component.html',
@@ -24,6 +24,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   resetPasswordForm: FormGroup = new FormGroup({});
   destroy$: Subject<boolean> = new Subject<boolean>();
   loading: boolean = false;
+  email: InputSignal<string> = input.required<string>();
 
   ngOnInit(): void {
     this.resetPasswordForm = new FormGroup({
@@ -37,11 +38,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
   submit(){
     this.loading = true;
-    this._authService.getEmail().pipe(
-      takeUntil(this.destroy$),
-      switchMap(email => this._ngxAuthApiService.resetPassword({"email": email,"newPassword": this.resetPasswordForm.value.password}).pipe(
+     this._ngxAuthApiService.resetPassword({"email": this.email(),"newPassword": this.resetPasswordForm.value.password}).pipe(
         takeUntil(this.destroy$),
-      ))
     ).subscribe({
       next: (res: ResetPasswordResponse)=> {
         this.loading = false;
