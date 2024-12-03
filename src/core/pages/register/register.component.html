@@ -3,8 +3,8 @@
     <p-toast position="top-center"/>
     <form [formGroup]="registerForm" (ngSubmit)="submit()">
       <div class="card flex w-full flex-column justify-content-center">  
-        <input class="w-full mb-5 inter inter-500" type="text" placeholder="Username" [class]="'ng-invalid ng-dirty'" pInputText formControlName="username" />
-        @if(registerForm.get('username')?.errors && registerForm.get('username')?.touched || registerForm.get('username')?.errors && registerForm.get('username')?.dirty){
+        <input class="w-full inter inter-500" type="text" placeholder="Username" [class.mb-5]="!(registerForm.get('username')?.errors && (registerForm.get('username')?.touched || registerForm.get('username')?.dirty))" [class]="'ng-invalid ng-dirty'" pInputText formControlName="username" />
+        @if(registerForm.get('username')?.errors && (registerForm.get('username')?.touched || registerForm.get('username')?.dirty)){
           @if(registerForm.get('username')?.errors?.['minlength']){
             <app-error-message [message]="'Username must be at least 4 characters long'"></app-error-message>
           }@else if(registerForm.get('username')?.errors?.['maxlength']){
@@ -13,8 +13,8 @@
             <app-error-message [message]="'Username is required'"></app-error-message>
           }
         } 
-        <input class="w-full mb-5 inter inter-500" type="text" placeholder="First Name" [class]="'ng-invalid ng-dirty'" pInputText formControlName="firstName" />
-        @if(registerForm.get('firstName')?.errors && registerForm.get('firstName')?.touched || registerForm.get('firstName')?.errors && registerForm.get('firstName')?.dirty){
+        <input class="w-full inter inter-500" type="text" placeholder="First Name" [class.mb-5]="!(registerForm.get('firstName')?.errors && (registerForm.get('firstName')?.touched || registerForm.get('firstName')?.dirty))" [class]="'ng-invalid ng-dirty'" pInputText formControlName="firstName" />
+        @if(registerForm.get('firstName')?.errors && (registerForm.get('firstName')?.touched || registerForm.get('firstName')?.dirty)){
           @if(registerForm.get('firstName')?.errors?.['minlength']){
             <app-error-message [message]="'First Name must be at least 4 characters long'"></app-error-message>
           }@else if(registerForm.get('firstName')?.errors?.['maxlength']){
@@ -23,8 +23,8 @@
             <app-error-message [message]="'First Name is required'"></app-error-message>
           }
         }         
-        <input class="w-full mb-5 inter inter-500" type="text" placeholder="Last Name" [class]="'ng-invalid ng-dirty'" pInputText formControlName="lastName" />
-        @if(registerForm.get('lastName')?.errors && registerForm.get('lastName')?.touched || registerForm.get('lastName')?.errors && registerForm.get('lastName')?.dirty){  
+        <input class="w-full inter inter-500" type="text" placeholder="Last Name" [class.mb-5]="!(registerForm.get('lastName')?.errors && (registerForm.get('lastName')?.touched || registerForm.get('lastName')?.dirty))" [class]="'ng-invalid ng-dirty'" pInputText formControlName="lastName" />
+        @if(registerForm.get('lastName')?.errors && (registerForm.get('lastName')?.touched || registerForm.get('lastName')?.dirty)){  
           @if(registerForm.get('lastName')?.errors?.['minlength']){
             <app-error-message [message]="'Last Name must be at least 4 characters long'"></app-error-message>
           }@else if(registerForm.get('lastName')?.errors?.['maxlength']){
@@ -33,32 +33,32 @@
             <app-error-message [message]="'Last Name is required'"></app-error-message>
           }
         }          
-        <input class="w-full mb-5 inter inter-500" type="email" placeholder="Email" [class]="'ng-invalid ng-dirty'" pInputText formControlName="email" />
-        @if(registerForm.get('email')?.errors && registerForm.get('email')?.touched || registerForm.get('email')?.errors && registerForm.get('email')?.dirty){
+        <input class="w-full inter inter-500" type="email" placeholder="Email" [class.mb-5]="!(registerForm.get('email')?.errors && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty))" [class]="'ng-invalid ng-dirty'" pInputText formControlName="email" />
+        @if(registerForm.get('email')?.errors && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)){
           @if(registerForm.get('email')?.errors?.['email']){
             <app-error-message [message]="'Please enter a valid email address'"></app-error-message>
           }@else if(registerForm.get('email')?.errors?.['required']){
             <app-error-message [message]="'Email is required'"></app-error-message>
           }
         }        
-        <p-password [styleClass]="'w-full mb-5'"  formControlName="password" placeholder="Password" [toggleMask]="true" ></p-password>
-        @if(registerForm.get('password')?.errors && registerForm.get('password')?.touched || registerForm.get('password')?.errors && registerForm.get('password')?.dirty){
+        <p-password [styleClass]="'w-full'"  formControlName="password" placeholder="Password" [class.mb-5]="!(registerForm.get('password')?.errors && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty))" [toggleMask]="true" ></p-password>
+        @if(registerForm.get('password')?.errors && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)){
           @if(registerForm.get('password')?.errors?.['pattern']){
             <app-error-message [message]="'Password must be at least 6 characters long and contain at least one letter and one special character'"></app-error-message>
           }@else if(registerForm.get('password')?.errors?.['required']){
             <app-error-message [message]="'Password is required'"></app-error-message>
           }
         }        
-        <p-password [styleClass]="'w-full mb-5'"  formControlName="confirmPassword" placeholder="Confirm Password" [toggleMask]="true" ></p-password>
-        @if(registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.dirty){
+        <p-password [styleClass]="'w-full'"  formControlName="confirmPassword" placeholder="Confirm Password" [class.mb-5]="!(registerForm.get('confirmPassword')?.errors && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty))" [toggleMask]="true" ></p-password>
+        @if(registerForm.get('confirmPassword')?.errors && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty)){
           @if(registerForm.get('confirmPassword')?.errors?.['passwordMismatch']){
             <app-error-message [message]="'Passwords do not match'"></app-error-message>
           }@else if(registerForm.get('confirmPassword')?.errors?.['required']){
             <app-error-message [message]="'confirmPassword is required'"></app-error-message>
           }
         }        
-        <input class="w-full mb-3 inter inter-500" type="text" placeholder="Phone" [class]="'ng-invalid ng-dirty'" pInputText formControlName="phone" />
-        @if(registerForm.get('phone')?.errors && registerForm.get('phone')?.touched || registerForm.get('phone')?.errors && registerForm.get('phone')?.dirty){
+        <input class="w-full inter inter-500" type="text" placeholder="Phone" [class.mb-3]="!(registerForm.get('phone')?.errors && (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty))" [class]="'ng-invalid ng-dirty'" pInputText formControlName="phone" />
+        @if(registerForm.get('phone')?.errors && (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty)){
           @if(registerForm.get('phone')?.errors?.['pattern']){
             <app-error-message [message]="'Please enter a valid phone number'"></app-error-message>
           }@else if(registerForm.get('phone')?.errors?.['required']){

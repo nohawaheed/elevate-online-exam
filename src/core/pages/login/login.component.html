@@ -3,16 +3,16 @@
   <p-toast position="top-center"/>
   <form [formGroup]="loginForm" (ngSubmit)="submit()">
     <div class="card flex w-full flex-column justify-content-center">
-      <input class="w-full mb-5 inter inter-500" type="email" placeholder="Enter Email" [class]="'ng-invalid ng-dirty'" pInputText formControlName="email" />
-      @if(loginForm.get('email')?.errors && loginForm.get('email')?.touched || loginForm.get('email')?.errors && loginForm.get('email')?.dirty){
+      <input class="w-full inter inter-500" type="email" placeholder="Enter Email" [class.mb-5]="!(loginForm.get('email')?.errors && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty))" [class]="'ng-invalid ng-dirty'" pInputText formControlName="email" />
+      @if(loginForm.get('email')?.errors && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)){
         @if(loginForm.get('email')?.errors?.['email']){
           <app-error-message [message]="'Please enter a valid email address'"></app-error-message>
         }@else if(loginForm.get('email')?.errors?.['required']){
           <app-error-message [message]="'Email is required'"></app-error-message>
         }
       }
-      <p-password [styleClass]="'w-full mb-3'" formControlName="password" placeholder="Password"  [toggleMask]="true" ></p-password>
-      @if(loginForm.get('password')?.errors && loginForm.get('password')?.touched || loginForm.get('password')?.errors && loginForm.get('password')?.dirty){  
+      <p-password [styleClass]="'w-full'" formControlName="password" placeholder="Password" [class.mb-3]="!(loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty))"  [toggleMask]="true" ></p-password>
+      @if(loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)){  
         @if(loginForm.get('password')?.errors?.['pattern']){
           <app-error-message [message]="'Password must be at least 6 characters long and contain at least one letter and one special character'"></app-error-message>
         }@else if(loginForm.get('password')?.errors?.['required']){
