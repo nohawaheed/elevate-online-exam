@@ -17,18 +17,13 @@
     }
 }
 
-// ::ng-deep{
-//     p-button{
-//         ::ng-deep{
-//             .p-button {
-//                     background: $main-color !important;
-//                     width: 100% !important;
-//                     padding: 1rem 0rem;
-//                     .p-button-label{
-//                         font-family: $font-poppins !important;
-//                         font-weight: $font-w-400 !important;
-//                     }
-//                 }
-//         }
-//     }
-// }
+@media screen and (max-width: 768px) {
+    .login{
+        max-width: unset;
+    } 
+}
+@media screen and (max-width: 400px) {
+    .remember-me{
+        justify-content: center !important;
+    } 
+}

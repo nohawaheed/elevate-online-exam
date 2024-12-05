@@ -1,19 +1,32 @@
+@import "../../../../styles/variables.scss";
+
 .methods{
-    &-continue{
-        &::after , &::before{
-            content: '';
-            width: 8.313rem;
-            height: 0.063rem;
-            background-color:#E7E7E7;
-            display: inline-block;
-        }
-        &::before{
-            margin-right: 0.438em;
-        }
-        &::after{
-            margin-left: 0.438em;
-        }
-    }
+    &-continue {
+        overflow: hidden;
+        text-align: center;
+        color: $black;
+      }
+      
+      &-continue::before,
+      &-continue::after {
+        background-color: #E7E7E7;
+        content: "";
+        display: inline-block;
+        height: 0.063rem;
+        position: relative;
+        vertical-align: middle;
+        width: 50%;
+      }
+      
+      &-continue::before {
+        right: 0.5em;
+        margin-left: -50%;
+      }
+      
+      &-continue::after {
+        left: 0.5em;
+        margin-right: -50%;
+      }
 
     &-social{
         width: 22.19rem;

@@ -21,3 +21,21 @@
 p-splitbutton{
     max-width: 4.25rem;
 }
+
+@media screen and (max-width: 768px) {
+    .navbar{
+        margin-bottom: 2rem;
+    }
+}
+@media screen and (max-width: 500px) {
+    .navbar-list{
+        flex-direction: column;
+        &_item{
+            width: 100%;
+            text-align: center;
+        }
+    }
+    .flex{
+        gap:1rem;
+    }
+}

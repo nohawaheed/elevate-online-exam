@@ -1,16 +1,17 @@
-<header class="flex">
-    <div class="poppins header col-6">
-      <div class="header-content">
+<header class="flex flex-column md:flex-row">
+  <div class="poppins header col-12 md:col-5 lg:col-6">
+      <app-navbar class="md:hidden flex justify-content-center flex-column sm:flex-row sm:justify-content-end"></app-navbar>
+      <div class="header-content sm:w-full">
         <h1 class="poppins-700 header-content_title m-0">Welcome to 
           <span class="logo-color">Elevate</span></h1>
-          <p class="poppins-400 header-content_paragraph mt-2 mb-0">Quidem autem voluptatibus qui quaerat aspernatur architecto natus</p>
-         <div class="mt-8">
-          <img ngSrc="assets/images/bro.svg" alt="person-taking-exam" width="410" height="437" priority>
+          <p class="poppins-400 header-content_paragraph p-2 lg:p-0 mt-2 mb-0">Quidem autem voluptatibus qui quaerat aspernatur architecto natus</p>
+          <div class="lg:mt-8 hidden md:flex">
+            <img ngSrc="assets/images/bro.svg" class="max-w-full" alt="person-taking-exam" width="410" height="437" priority>
          </div>
       </div>
     </div>
-    <div class="col-5 col-offset-1 main-content flex flex-column">
-    <app-navbar class="align-self-end"></app-navbar>
+    <div class="col-12 md:col-6 lg:col-5 md:col-offset-1 main-content flex flex-column">
+    <app-navbar class="align-self-end hidden md:flex"></app-navbar>
     <div class="content-wrapper">
       <router-outlet></router-outlet>
     </div>

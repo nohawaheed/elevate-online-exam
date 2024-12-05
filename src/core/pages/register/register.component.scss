@@ -23,7 +23,6 @@
     p-button{
         ::ng-deep{
             .p-button {
-                    background: $main-color !important;
                     padding: 1rem 0rem;
                     .p-button-label{
                         font-family: $font-poppins !important;
@@ -32,4 +31,10 @@
                 }
         }
     }
+}
+
+@media screen and (max-width: 768px) {
+    .register{
+        max-width: unset;
+    } 
 }
