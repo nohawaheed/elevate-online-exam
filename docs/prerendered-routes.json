@@ -1,0 +1,9 @@
+{
+  "routes": [
+    "/",
+    "/forgot-password",
+    "/home",
+    "/login",
+    "/register"
+  ]
+}
