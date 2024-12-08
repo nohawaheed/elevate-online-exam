@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { AuthResponse, RecoverPasswordRequest, RecoverPasswordResponse, RegisterRequest, ResetPasswordRequest, ResetPasswordResponse, VerifyCodeRequest, VerifyCodeResponse } from '../interfaces/auth.interfaces';
+import { AuthResponse, LogoutResponse, RecoverPasswordRequest, RecoverPasswordResponse, RegisterRequest, ResetPasswordRequest, ResetPasswordResponse, VerifyCodeRequest, VerifyCodeResponse } from '../interfaces/auth.interfaces';
 import { LoginRequest } from './../interfaces/auth.interfaces';
 
 export abstract class NgxAuthApi {
@@ -8,4 +8,5 @@ export abstract class NgxAuthApi {
   abstract recoverPassword(data: RecoverPasswordRequest): Observable<RecoverPasswordResponse>;
   abstract verifyCode(data: VerifyCodeRequest): Observable<VerifyCodeResponse>;
   abstract resetPassword(data: ResetPasswordRequest): Observable<ResetPasswordResponse>;
+  abstract logout(): Observable<LogoutResponse>;
 }

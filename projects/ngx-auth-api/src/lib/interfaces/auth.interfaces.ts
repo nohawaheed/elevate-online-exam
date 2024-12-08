@@ -66,3 +66,6 @@ export interface ResetPasswordResponse {
     message: string;
     token: string;
 }
+export interface LogoutResponse {
+    message: string;
+}
