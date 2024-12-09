@@ -1,0 +1,7 @@
+<p-dialog [header]="header" [closable]="closable" [closeOnEscape]="closeOnEscape" [(visible)]="showDialog" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"  [style]="{ width: '25rem' }">
+    <span class="p-text-secondary block mb-5">{{body}}</span>
+    <div class="flex justify-content-end gap-2">
+        <p-button [label]="cancelLabel" [outlined]="true" (onClick)="emitAction(cancelLabel)" />
+        <p-button [label]="confirmLabel" (onClick)="emitAction(confirmLabel)" />
+    </div>
+</p-dialog>
