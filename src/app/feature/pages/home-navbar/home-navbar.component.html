@@ -1,0 +1,11 @@
+<p-toast position="top-center" />
+<div class="card flex justify-content-start">
+    <p-menu [model]="items" >
+        <ng-template pTemplate="start">
+            <img src="/assets/images/logo.png" height="29" class="p-mr-2" alt="brand logo">
+        </ng-template>
+    </p-menu>
+</div>
+<app-dialog (buttonClicked)="logout($event)" [(showDialog)]="showDialog" 
+[body]="'Are you sure you want to logout?'" [closable]="true" [header]="'Confirm Logout'" 
+[closeOnEscape]="true" [cancelLabel]="'Cancel'" [confirmLabel]="'Ok'"></app-dialog>
