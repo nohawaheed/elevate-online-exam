@@ -7,7 +7,7 @@ import { AllSubjects } from '../interfaces/subject';
 })
 export class SubjectAdapter implements Adapter {
   constructor() {}
-  adaptSubject(data: AllSubjects): any {
+  adapt(data: AllSubjects): any {
     let result = {
       message: data.message,
       metadata: {

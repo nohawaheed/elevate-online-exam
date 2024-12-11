@@ -1,3 +1,3 @@
 export interface Adapter {
-  adaptSubject(data: any): any;
+  adapt(data: any): any;
 }
