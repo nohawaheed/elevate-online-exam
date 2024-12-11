@@ -1,3 +1,16 @@
-<p-button [loading]="loading" [style]="{'padding': padding , 'width': width, 'background': background, 'border-color': background, 'color': color}"  [label]="label" [type]="type" [rounded]="true" [disabled]="disabled()" (click)="onButtonClicked($event)"
+<p-button
+  [loading]="loading"
+  [style]="{
+    padding: padding,
+    width: width,
+    background: background,
+    'border-color': background,
+    color: color,
+    fontSize: fontSize
+  }"
+  [label]="label"
+  [type]="type"
+  [rounded]="true"
+  [disabled]="disabled()"
+  (click)="onButtonClicked($event)"
 ></p-button>
-

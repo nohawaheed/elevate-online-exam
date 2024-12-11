@@ -10,14 +10,15 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-  @Input() label : string = 'Add';
-  @Input() type : string = 'button';
-  @Input() padding : string = '1rem 0rem';
-  @Input() width : string = '100%';
-  @Input() background : string = '#4461f2';
-  @Input() color : string = '#fff';
-  @Input() loading : boolean = false;
-  disabled : InputSignal<boolean>  = input.required<boolean>();
+  @Input() label: string = 'Add';
+  @Input() type: string = 'button';
+  @Input() padding: string = '1rem 0rem';
+  @Input() width: string = '100%';
+  @Input() background: string = '#4461f2';
+  @Input() color: string = '#fff';
+  @Input() loading: boolean = false;
+  @Input() fontSize: string = '1rem';
+  disabled: InputSignal<boolean> = input.required<boolean>();
   buttonClicked = output<boolean>();
 
   onButtonClicked(event: MouseEvent): void {
