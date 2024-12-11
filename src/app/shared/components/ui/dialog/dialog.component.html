@@ -1,7 +1,36 @@
-<p-dialog [header]="header" [closable]="closable" [closeOnEscape]="closeOnEscape" [(visible)]="showDialog" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"  [style]="{ width: '25rem' }">
-    <span class="p-text-secondary block mb-5">{{body}}</span>
-    <div class="flex justify-content-end gap-2">
-        <p-button [label]="cancelLabel" [outlined]="true" (onClick)="emitAction(cancelLabel)" />
-        <p-button [label]="confirmLabel" (onClick)="emitAction(confirmLabel)" />
-    </div>
+<p-dialog
+  [header]="header"
+  [closable]="closable"
+  [closeOnEscape]="closeOnEscape"
+  [modal]="modal"
+  [(visible)]="showDialog"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '25rem' }"
+>
+  <span class="p-text-secondary block mb-5">{{ body }}</span>
+  <div class="flex justify-content-end gap-2">
+    @if(cancelLabel){
+    <p-button
+      [label]="cancelLabel"
+      [outlined]="true"
+      [style]="{
+        bordercolor: color,
+        color: color,
+        width: confirmLabel ? null : '100%'
+      }"
+      [style.width]="confirmLabel ? null : '100%'"
+      (onClick)="emitAction(cancelLabel)"
+    />
+    } @if(confirmLabel){
+    <p-button
+      [label]="confirmLabel"
+      [style]="{
+        background: color,
+        width: cancelLabel ? null : '100%'
+      }"
+      [style.width]="cancelLabel ? null : '100%'"
+      (onClick)="emitAction(confirmLabel)"
+    />
+    }
+  </div>
 </p-dialog>
