@@ -28,3 +28,31 @@ export interface ExamAdapted {
   };
   exams: Exam[];
 }
+
+export interface ExamQuestions {
+  message: string;
+  questions: Question[];
+}
+
+export interface Question {
+  answers: Answers[];
+  type: string;
+  _id: string;
+  question: string;
+  correct: string;
+  subject: Subject;
+  exam: Exam;
+  createdAt: string;
+}
+
+export interface Answers {
+  answer: string;
+  type: string;
+}
+
+export interface Subject {
+  _id: string;
+  name: string;
+  icon: string;
+  createdAt: string;
+}
