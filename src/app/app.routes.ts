@@ -1,34 +1,41 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { loggedinGuard } from './core/guards/loggedin.guard';
 
 export const routes: Routes = [
-  { path: '', 
-    loadComponent: ()=> import('./core/layout/auth-layout/auth-layout.component').then(
-      (c) => c.AuthLayoutComponent),
-      children: [
-        { path: '', redirectTo: 'login', pathMatch: 'full' },
-        {
-          path: 'login',
-          loadComponent: () =>
-            import('./core/pages/login/login.component').then(
-              (c) => c.LoginComponent
-            ),
-        },
-        {
-          path: 'register',
-          loadComponent: () =>
-            import('./core/pages/register/register.component').then(
-              (c) => c.RegisterComponent
-            ),
-        },
-        {
-          path: 'forgot-password',
-          loadComponent: () => 
-            import('./core/pages/forgot-password/forgot-password.component').then(
-              (c) => c.ForgotPasswordComponent
-          )
-        },
-      ] 
+  {
+    path: '',
+    loadComponent: () =>
+      import('./core/layout/auth-layout/auth-layout.component').then(
+        (c) => c.AuthLayoutComponent
+      ),
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./core/pages/login/login.component').then(
+            (c) => c.LoginComponent
+          ),
+        canActivate: [loggedinGuard],
+      },
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./core/pages/register/register.component').then(
+            (c) => c.RegisterComponent
+          ),
+        canActivate: [loggedinGuard],
+      },
+      {
+        path: 'forgot-password',
+        loadComponent: () =>
+          import('./core/pages/forgot-password/forgot-password.component').then(
+            (c) => c.ForgotPasswordComponent
+          ),
+        canActivate: [loggedinGuard],
+      },
+    ],
   },
   {
     path: 'home',
@@ -37,5 +44,5 @@ export const routes: Routes = [
         (c) => c.HomeComponent
       ),
     canActivate: [authGuard],
-  }
+  },
 ];
