@@ -14,8 +14,8 @@
       [label]="cancelLabel"
       [outlined]="true"
       [style]="{
-        bordercolor: color,
         color: color,
+        borderRadius: '100px',
         width: confirmLabel ? null : '100%'
       }"
       [style.width]="confirmLabel ? null : '100%'"
@@ -26,6 +26,7 @@
       [label]="confirmLabel"
       [style]="{
         background: color,
+        borderRadius: '100px',
         width: cancelLabel ? null : '100%'
       }"
       [style.width]="cancelLabel ? null : '100%'"
