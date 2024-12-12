@@ -1,2 +1,0 @@
-import './polyfills.server.mjs';
-import{Bb as m,Y as o,eb as n,fb as i,ub as a}from"./chunk-JD5DQH5O.mjs";import"./chunk-VVCT4QZE.mjs";var c=(()=>{class e{static{this.\u0275fac=function(t){return new(t||e)}}static{this.\u0275cmp=o({type:e,selectors:[["app-home"]],standalone:!0,features:[m],decls:2,vars:0,template:function(t,p){t&1&&(n(0,"p"),a(1,"home works!"),i())}})}}return e})();export{c as HomeComponent};
