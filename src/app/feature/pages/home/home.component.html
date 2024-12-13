@@ -1,9 +1,9 @@
-<main class="home">
-  <div class="flex">
-    <div class="md:col-2">
+<main class="w-full">
+  <div class="flex flex-column md:flex-row justify-content-between">
+    <div class="col-12 md:col-2">
       <app-home-navbar></app-home-navbar>
     </div>
-    <div class="col-12 md:col-10">
+    <div class="col-12 md:col-9 lg:col-offset-1">
       <router-outlet></router-outlet>
     </div>
   </div>
