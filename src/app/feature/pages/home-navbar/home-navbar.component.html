@@ -1,6 +1,11 @@
 <p-toast position="top-center" />
 <div class="card flex justify-content-start">
-  <p-menu [model]="items">
+  <p-menu
+    [model]="items"
+    #menu
+    [popup]="mobileView()"
+    [style]="{ maxwidth: '100%', width: mobileView() ? '100%' : '' }"
+  >
     <ng-template pTemplate="start">
       <img
         src="/assets/images/logo.png"
@@ -21,3 +26,10 @@
   [cancelLabel]="'Cancel'"
   [confirmLabel]="'Ok'"
 ></app-dialog>
+
+<p-button
+  icon="pi pi-bars"
+  (click)="menu.toggle($event)"
+  [style]="{ color: '#fff', background: '#4461f2' }"
+  [style.display]="mobileView() ? 'flex' : 'none'"
+/>

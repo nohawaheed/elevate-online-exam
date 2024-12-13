@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
@@ -7,11 +7,18 @@ import { ErrorMessage, LogoutResponse, NgxAuthApiService } from 'ngx-auth-api';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { DialogComponent } from '../../../shared/components/ui/dialog/dialog.component';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-home-navbar',
   standalone: true,
-  imports: [MenuModule, MenubarModule, ToastModule, DialogComponent],
+  imports: [
+    MenuModule,
+    MenubarModule,
+    ToastModule,
+    DialogComponent,
+    ButtonModule,
+  ],
   templateUrl: './home-navbar.component.html',
   styleUrl: './home-navbar.component.scss',
 })
@@ -25,8 +32,16 @@ export class HomeNavbarComponent {
 
   items: MenuItem[] | undefined;
   showDialog = signal(false);
+  mobileView = signal(false);
+
+  @HostListener('window:resize', ['$event']) onResize(event: any) {
+    if (this._authService.isPlatformBrowser()) {
+      this.mobileView.set(window.matchMedia('(max-width: 768px)').matches);
+    }
+  }
 
   ngOnInit() {
+    this.onResize(null);
     this.items = [
       {
         label: 'Dashboard',
