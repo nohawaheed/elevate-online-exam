@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { HomeNavbarComponent } from '../home-navbar/home-navbar.component';
-import { QuizesComponent } from '../quizes/quizes.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HomeNavbarComponent, QuizesComponent],
+  imports: [HomeNavbarComponent, RouterOutlet],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

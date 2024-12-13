@@ -31,12 +31,13 @@ export class HomeNavbarComponent {
       {
         label: 'Dashboard',
         icon: 'pi pi-home',
-        routerLink: ['/home'],
+        routerLink: ['/dashboard'],
         styleClass: 'poppins poppins-500 mb-5',
       },
       {
         label: 'Quiz History',
         icon: 'pi pi-history',
+        routerLink: ['/quiz-history'],
         styleClass: 'poppins poppins-500 mb-6',
       },
       {

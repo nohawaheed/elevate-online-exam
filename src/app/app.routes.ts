@@ -38,11 +38,34 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'home',
+    path: '',
     loadComponent: () =>
       import('./feature/pages/home/home.component').then(
         (c) => c.HomeComponent
       ),
     canActivate: [authGuard],
+    children: [
+      {
+        path: 'home',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./feature/pages/quizes/quizes.component').then(
+            (c) => c.QuizesComponent
+          ),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'quiz-history',
+        loadComponent: () =>
+          import('./feature/pages/quiz-history/quiz-history.component').then(
+            (c) => c.QuizHistoryComponent
+          ),
+        canActivate: [authGuard],
+      },
+    ],
   },
 ];
