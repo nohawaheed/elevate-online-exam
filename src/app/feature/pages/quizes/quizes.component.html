@@ -1,0 +1,28 @@
+@if(quizSubject){
+<app-start-quiz [subjectId]="quizSubject"></app-start-quiz>
+}@else {
+<cdk-virtual-scroll-viewport
+  itemSize="292"
+  orientation="vertical"
+  (scrolledIndexChange)="onScrolled($event)"
+  [style]="{
+    minHeight: '100vh',
+    height: '100%',
+    width: '100%',
+    margin: '1rem 0px'
+  }"
+>
+  @if(errorMessage){
+  <div class="p-text-secondary block mb-5">{{ errorMessage }}</div>
+  }
+  <div
+    *cdkVirtualFor="let item of items; let i = index"
+    [class]="'col-12 md:col-6 lg:col-4 xl-screen'"
+  >
+    <app-quiz-card
+      [quizSubject]="item"
+      (subjectClicked)="startQuiz($event)"
+    ></app-quiz-card>
+  </div>
+</cdk-virtual-scroll-viewport>
+}

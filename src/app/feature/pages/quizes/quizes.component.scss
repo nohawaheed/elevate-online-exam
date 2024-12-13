@@ -1,0 +1,15 @@
+::ng-deep {
+  .cdk-virtual-scroll-content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .xl-screen {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 25%;
+  }
+}
