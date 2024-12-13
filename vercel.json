@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://exam.elevateegy.com/:path*"
+      "destination": "https://exam.elevateegy.com/api/:path*"
     }
   ]
 }
