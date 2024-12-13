@@ -1,0 +1,43 @@
+@import "functions.scss";
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+::ng-deep {
+  .p-card {
+    max-width: changeToRem(330px);
+    height: 100%;
+    border-radius: changeToRem(8.44px);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    .p-card-body,
+    .p-card-content {
+      padding: 0px;
+      height: 100%;
+      width: 100%;
+    }
+    .p-card-header {
+      position: absolute;
+      bottom: changeToRem(27px);
+      max-width: changeToRem(276px);
+      max-height: changeToRem(66px);
+      background-color: rgb(25, 53, 202, 0.4);
+      border-radius: changeToRem(8.44px);
+      padding: 1rem;
+      color: #fff;
+    }
+  }
+}
+
+.header {
+  max-width: changeToRem(246px);
+  &-title {
+    font-size: 13.51px;
+  }
+  &-subtitle {
+    font-size: 11.82px;
+  }
+}
