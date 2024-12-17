@@ -1,0 +1,15 @@
+@import 'variables.scss';
+
+.verify{
+    &-code{
+        margin-bottom: 2.5em !important;
+        color: $black;
+        &_resend{
+            color: $main-color;
+            border: unset;
+            background-color: unset;
+            font-size: 1rem;
+            cursor: pointer;
+        }     
+    }
+}

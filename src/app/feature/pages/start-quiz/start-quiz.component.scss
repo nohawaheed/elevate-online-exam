@@ -1,0 +1,17 @@
+.exam {
+  &-container {
+    background-color: #fff;
+    box-shadow: 0px 15px 40px rgba(42, 41, 41, 0.05);
+    border-radius: 10px;
+  }
+  padding: 0px 11.5px;
+  &-content {
+    &_title {
+      font-size: 16px;
+    }
+    &_subtitle,
+    &_duration {
+      font-size: 13px;
+    }
+  }
+}

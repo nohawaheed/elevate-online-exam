@@ -1,0 +1,40 @@
+@import "variables.scss";
+
+::ng-deep {
+  .p-menu {
+    border: none;
+    padding: 1rem;
+  }
+  .p-menu-list {
+    .p-menuitem-text {
+      color: $text-color;
+    }
+    .p-menuitem-icon {
+      color: $main-color;
+    }
+    .p-menuitem-link-active {
+      background-color: $main-color !important;
+      border-radius: 10px;
+      .p-menuitem-icon {
+        color: #fff;
+      }
+      .p-menuitem-text {
+        color: #fff;
+      }
+    }
+    .p-menuitem-content {
+      max-width: 12rem;
+    }
+    .p-menuitem-link:hover,
+    .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus
+      > .p-menuitem-content {
+      background-color: $main-color;
+      max-width: 12rem;
+      border-radius: 10px;
+      .p-menuitem-text,
+      .p-menuitem-icon {
+        color: #fff;
+      }
+    }
+  }
+}
