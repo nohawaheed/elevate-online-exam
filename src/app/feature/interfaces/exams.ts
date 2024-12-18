@@ -47,7 +47,7 @@ export interface Question {
 
 export interface Answers {
   answer: string;
-  type: string;
+  key: string;
 }
 
 export interface Subject {
@@ -55,4 +55,11 @@ export interface Subject {
   name: string;
   icon: string;
   createdAt: string;
+}
+
+export interface ExamResult {
+  questionNumber: number;
+  selectedAnswer: string | null;
+  correctAnswer: string;
+  answers: Answers[];
 }
