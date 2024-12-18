@@ -46,7 +46,7 @@
   </p-dataView>
 </div>
 
-@if(examQuestions()){
+@if(examQuestions() && showConfirmationDialog()){
 <app-dialog
   [closable]="false"
   [closeOnEscape]="false"
@@ -57,4 +57,13 @@
   [(showDialog)]="showConfirmationDialog"
   (buttonClicked)="startExam($event)"
 ></app-dialog>
+} @else if(showExamModal()){
+<app-exam-dialog
+  [(showDialog)]="showExamModal"
+  (buttonClicked)="sendQuestion($event)"
+  [examQuestion]="examQuestions()[questionNumber()]"
+  [allExamQuestions]="examQuestions()"
+  [questionNumber]="questionNumber()"
+  (finalResult)="showExamResults($event)"
+></app-exam-dialog>
 }
