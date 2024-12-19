@@ -66,4 +66,16 @@
   [questionNumber]="questionNumber()"
   (finalResult)="showExamResults($event)"
 ></app-exam-dialog>
+} @else if(showExamResultModal()){
+<app-result-dialog
+  [closable]="false"
+  [closeOnEscape]="false"
+  [modal]="true"
+  [header]="'Your score'"
+  [examResult]="examResult()"
+  [confirmLabel]="'Show results'"
+  [cancelLabel]="'Back'"
+  [(showDialog)]="showExamResultModal"
+  (buttonClicked)="startExam($event)"
+></app-result-dialog>
 }
