@@ -82,3 +82,25 @@ export interface QuestionInfo {
   correctAnswer: string;
   answers: {};
 }
+
+export interface ExamHistory {
+  message: string;
+  history: {
+    _id: string;
+    checkAnswer: string;
+    QID: {
+      answers: Answers[];
+      type: string;
+      _id: string;
+      question: string;
+      correct: string;
+      subject: Subject;
+      exam: string;
+      createdAt: string;
+    };
+    user: string;
+    chosenAnswer: string;
+    avgAnswerTime: string;
+    createdAt: string;
+  };
+}
