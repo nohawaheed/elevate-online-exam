@@ -63,7 +63,7 @@ export interface CheckQuestionsRequest {
 
 export interface AnsweredQuestions {
   questionId: string;
-  correct: string;
+  correct?: string;
 }
 
 export interface CheckQuestionsResponse {
