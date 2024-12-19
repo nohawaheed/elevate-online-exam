@@ -9,6 +9,7 @@ import {
   CheckQuestionsRequest,
   CheckQuestionsResponse,
   ExamAdapted,
+  ExamHistory,
   ExamQuestions,
 } from '../interfaces/exams';
 import { ExamAdapter } from '../adapter/exam.adapter';
@@ -56,5 +57,11 @@ export class ExamService {
     return this._httpClient
       .post(`${ExamEndpoint.CHECK_QUESTIONS}`, data)
       .pipe(map((res) => res as CheckQuestionsResponse));
+  }
+
+  getExamHistory(): Observable<ExamHistory> {
+    return this._httpClient
+      .get(`${ExamEndpoint.GET_EXAM_HISTORY}`)
+      .pipe(map((res) => res as ExamHistory));
   }
 }
