@@ -57,20 +57,13 @@ export interface Subject {
   createdAt: string;
 }
 
-export interface ExamResult {
-  questionNumber: number;
-  selectedAnswer: string | null;
-  correctAnswer: string;
-  answers: Answers[];
-}
-
 export interface CheckQuestionsRequest {
   answers: AnsweredQuestions[];
 }
 
 export interface AnsweredQuestions {
   questionId: string;
-  correct: number;
+  correct: string;
 }
 
 export interface CheckQuestionsResponse {
