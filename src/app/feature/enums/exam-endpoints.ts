@@ -5,4 +5,5 @@ export class ExamEndpoint {
   static GET_EXAM_BY_ID = '/api/v1/exams/';
   static GET_EXAMS_ON_SUBJECT = '/api/v1/exams?subject=';
   static GET_ALL_SUBJECTS = '/api/v1/subjects?';
+  static GET_EXAM_HISTORY = '/api/v1/questions/history';
 }
