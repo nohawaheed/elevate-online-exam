@@ -4,7 +4,13 @@ import { ExamEndpoint } from '../enums/exam-endpoints';
 import { map, Observable } from 'rxjs';
 import { AllSubjects, SubjectAdapted } from '../interfaces/subject';
 import { SubjectAdapter } from '../adapter/subject.adapter';
-import { AllExams, ExamAdapted, ExamQuestions } from '../interfaces/exams';
+import {
+  AllExams,
+  CheckQuestionsRequest,
+  CheckQuestionsResponse,
+  ExamAdapted,
+  ExamQuestions,
+} from '../interfaces/exams';
 import { ExamAdapter } from '../adapter/exam.adapter';
 
 @Injectable({
@@ -42,5 +48,13 @@ export class ExamService {
     return this._httpClient
       .get(`${ExamEndpoint.GET_ALL_EXAM_QUESTIONS}${examId}`)
       .pipe(map((res) => res as ExamQuestions));
+  }
+
+  checkExamQuestions(
+    data: CheckQuestionsRequest
+  ): Observable<CheckQuestionsResponse> {
+    return this._httpClient
+      .post(`${ExamEndpoint.CHECK_QUESTIONS}`, data)
+      .pipe(map((res) => res as CheckQuestionsResponse));
   }
 }
