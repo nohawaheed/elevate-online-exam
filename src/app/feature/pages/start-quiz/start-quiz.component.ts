@@ -8,22 +8,22 @@ import {
 } from '../../interfaces/exams';
 import { ExamService } from './../../services/exam.service';
 import { MessageService } from 'primeng/api';
-import { ButtonComponent } from '../../../shared/components/ui/button/button.component';
 import { SkeletonModule } from 'primeng/skeleton';
 import { DialogComponent } from '../../../shared/components/ui/dialog/dialog.component';
 import { ExamDialogComponent } from '../../../shared/components/ui/exam-dialog/exam-dialog.component';
 import { ResultDialogComponent } from '../../../shared/components/ui/result-dialog/result-dialog.component';
+import { DataViewComponent } from '../../../shared/components/ui/data-view/data-view.component';
 
 @Component({
   selector: 'app-start-quiz',
   standalone: true,
   imports: [
     DataViewModule,
-    ButtonComponent,
     SkeletonModule,
     DialogComponent,
     ExamDialogComponent,
     ResultDialogComponent,
+    DataViewComponent,
   ],
   templateUrl: './start-quiz.component.html',
   styleUrl: './start-quiz.component.scss',
@@ -70,24 +70,11 @@ export class StartQuizComponent implements OnInit {
       });
   }
 
-  getExamQuestions(examRequested: boolean, examId: string) {
-    if (examRequested) {
-      this._examService.getQuestionsOnExam(examId).subscribe({
-        next: (res) => {
-          if (res.message === 'success') {
-            this.examQuestions.set(res.questions);
-            this.showConfirmationDialog.set(true);
-          }
-        },
-        error: (err) => {
-          this._messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: err.error.message,
-          });
-        },
-      });
-    }
+  setExamQuestions(questions: Question[]) {
+    this.examQuestions.set(questions);
+  }
+  setConfirmationDialog(action: boolean) {
+    this.showConfirmationDialog.set(action);
   }
 
   startExam(action: string) {
