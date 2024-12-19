@@ -63,3 +63,29 @@ export interface ExamResult {
   correctAnswer: string;
   answers: Answers[];
 }
+
+export interface CheckQuestionsRequest {
+  answers: AnsweredQuestions[];
+}
+
+export interface AnsweredQuestions {
+  questionId: string;
+  correct: number;
+}
+
+export interface CheckQuestionsResponse {
+  message: string;
+  correct: number;
+  wrong: number;
+  total: string;
+  WrongQuestions: QuestionInfo[];
+  CorrectQuestions: QuestionInfo[];
+}
+
+export interface QuestionInfo {
+  QID: string;
+  Question: string;
+  inCorrectAnswer: string;
+  correctAnswer: string;
+  answers: {};
+}
