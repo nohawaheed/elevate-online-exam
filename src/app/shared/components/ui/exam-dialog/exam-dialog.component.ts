@@ -14,6 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 import {
   Question,
   AnsweredQuestions,
+  CheckQuestionsRequest,
 } from '../../../../feature/interfaces/exams';
 import { AuthService } from '../../../../core/services/auth.service';
 import { map, Subject, takeUntil, takeWhile, timer } from 'rxjs';
@@ -43,11 +44,12 @@ export class ExamDialogComponent implements OnInit, OnDestroy {
   showDialog = model(false);
   buttonClicked = output<string>();
   examDuration = signal<string | null>(null);
-  finalResult = output<AnsweredQuestions[]>();
+  finalResult = output<CheckQuestionsRequest>();
 
   constructor(private authService: AuthService) {}
   questionsForm!: FormGroup;
   answers = signal<AnsweredQuestions[]>([]);
+  minutes = signal<number>(0);
   ngOnInit(): void {
     this.questionsForm = new FormGroup({
       selectedAnswer: new FormControl<string | null>(null, [
@@ -81,13 +83,17 @@ export class ExamDialogComponent implements OnInit, OnDestroy {
     this.buttonClicked.emit(action);
     if (action === 'Next') {
       //emit exam result if next is the last question
-      if (this.allExamQuestions().length - 1 === this.questionNumber() + 1) {
-        this.finalResult.emit(this.answers());
+      if (this.allExamQuestions().length === this.questionNumber() + 1) {
+        this.finalResult.emit({
+          answers: this.answers(),
+          time: this.examQuestion().exam.duration - this.minutes(),
+        });
+      } else {
+        //to ensure that the selectedAnswer is not null when clicking next
+        this.questionsForm
+          .get('selectedAnswer')
+          ?.setValue(this.answers()[this.questionNumber() + 1].correct);
       }
-      //to ensure that the selectedAnswer is not null when clicking next
-      this.questionsForm
-        .get('selectedAnswer')
-        ?.setValue(this.answers()[this.questionNumber() + 1].correct);
     } else {
       //to ensure that the selectedAnswer is not null when clicking back
       this.questionsForm
@@ -107,13 +113,17 @@ export class ExamDialogComponent implements OnInit, OnDestroy {
             totalMilliseconds -= 1000;
             const seconds = Math.floor((totalMilliseconds / 1000) % 60);
             const minutes = Math.floor((totalMilliseconds / (1000 * 60)) % 60);
+            this.minutes.set(minutes);
             return `${minutes ? minutes + 'm ' : ''}${seconds}s`;
           })
         )
         .subscribe((res) => {
           this.examDuration.set(res);
           if (res === '0s') {
-            this.finalResult.emit(this.answers());
+            this.finalResult.emit({
+              answers: this.answers(),
+              time: this.examQuestion().exam.duration,
+            });
           }
         });
     } else {
