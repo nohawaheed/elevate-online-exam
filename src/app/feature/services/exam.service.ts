@@ -8,7 +8,9 @@ import {
   AllExams,
   CheckQuestionsRequest,
   CheckQuestionsResponse,
+  Exam,
   ExamAdapted,
+  ExamById,
   ExamHistory,
   ExamQuestions,
 } from '../interfaces/exams';
@@ -63,5 +65,11 @@ export class ExamService {
     return this._httpClient
       .get(`${ExamEndpoint.GET_EXAM_HISTORY}`)
       .pipe(map((res) => res as ExamHistory));
+  }
+
+  getExamById(examId: string): Observable<ExamById> {
+    return this._httpClient
+      .get(`${ExamEndpoint.GET_EXAM_BY_ID}${examId}`)
+      .pipe(map((res) => res as ExamById));
   }
 }
