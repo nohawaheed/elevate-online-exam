@@ -11,7 +11,10 @@ import {
 } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { Question, ExamResult } from '../../../../feature/interfaces/exams';
+import {
+  Question,
+  AnsweredQuestions,
+} from '../../../../feature/interfaces/exams';
 import { AuthService } from '../../../../core/services/auth.service';
 import { map, Subject, takeUntil, takeWhile, timer } from 'rxjs';
 import {
@@ -40,11 +43,11 @@ export class ExamDialogComponent implements OnInit, OnDestroy {
   showDialog = model(false);
   buttonClicked = output<string>();
   examDuration = signal<string | null>(null);
-  finalResult = output<ExamResult[]>();
+  finalResult = output<AnsweredQuestions[]>();
 
   constructor(private authService: AuthService) {}
   questionsForm!: FormGroup;
-  answers = signal<ExamResult[]>([]);
+  answers = signal<AnsweredQuestions[]>([]);
   ngOnInit(): void {
     this.questionsForm = new FormGroup({
       selectedAnswer: new FormControl<string | null>(null, [
@@ -61,21 +64,19 @@ export class ExamDialogComponent implements OnInit, OnDestroy {
   }
 
   setAnswers() {
-    // Initialize answers signal with null selectedAnswer for each question
-    this.allExamQuestions().map((question, index) => {
+    // Initialize answers signal with all questions,
+    // so that even if user didn't finish the exam all questions will be saved
+    this.allExamQuestions().map((question) => {
       this.answers().push({
-        questionNumber: index,
-        selectedAnswer: null,
-        correctAnswer: question.correct,
-        answers: question.answers,
+        questionId: question._id,
       });
     });
   }
   saveSelectedAnswer() {
-    this.answers()[this.questionNumber()].selectedAnswer = this.selectedAnswer;
+    // Save the selected answer in correct property in answers array
+    this.answers()[this.questionNumber()].correct = this.selectedAnswer;
   }
 
-  submit() {}
   emitAction(action: string) {
     this.buttonClicked.emit(action);
     if (action === 'Next') {
@@ -86,19 +87,18 @@ export class ExamDialogComponent implements OnInit, OnDestroy {
       //to ensure that the selectedAnswer is not null when clicking next
       this.questionsForm
         .get('selectedAnswer')
-        ?.setValue(this.answers()[this.questionNumber() + 1].selectedAnswer);
+        ?.setValue(this.answers()[this.questionNumber() + 1].correct);
     } else {
       //to ensure that the selectedAnswer is not null when clicking back
       this.questionsForm
         .get('selectedAnswer')
-        ?.setValue(this.answers()[this.questionNumber() - 1].selectedAnswer);
+        ?.setValue(this.answers()[this.questionNumber() - 1].correct);
     }
   }
 
   getExamDuration() {
     if (this.authService.isPlatformBrowser()) {
-      // this.examQuestion().exam.duration
-      let totalMilliseconds = 1 * 60 * 1000;
+      let totalMilliseconds = this.examQuestion().exam.duration * 60 * 1000;
       timer(0, 1000)
         .pipe(
           takeWhile(() => totalMilliseconds > 0),
