@@ -1,0 +1,22 @@
+@if(loading()){
+<div class="card flex justify-content-center align-items-center h-full">
+  <p-progressSpinner
+    styleClass="w-4rem h-4rem"
+    class="spinner"
+    strokeWidth="6"
+    animationDuration=".5s"
+  />
+</div>
+}@else {
+<app-data-view
+  [component]="'QuizHistory'"
+  [historyData]="history()"
+  [examInfo]="examInfo()"
+  (openDialog)="showAnswers($event)"
+></app-data-view>
+} @if(showAnswersModal()){
+<app-answers-dialog
+  [(showDialog)]="showAnswersModal"
+  [examHistory]="history()"
+></app-answers-dialog>
+}

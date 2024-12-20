@@ -1,0 +1,19 @@
+@import "variables.scss";
+
+.field-checkbox {
+  background-color: #edeff3;
+  padding: 16px 8px;
+  border-radius: 10px;
+}
+.header-text {
+  color: #0f0f0f;
+}
+.subheader-text {
+  color: $main-color;
+}
+
+::ng-deep {
+  .p-dialog-header-icons {
+    display: none !important;
+  }
+}

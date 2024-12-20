@@ -1,0 +1,34 @@
+@import "variables";
+
+.correct-answer,
+.incorrect-answer {
+  &_count {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+  }
+}
+.correct-answer {
+  &_text,
+  &_count {
+    color: $correct;
+  }
+}
+.incorrect-answer {
+  &_text,
+  &_count {
+    color: $incorrect;
+  }
+}
+
+.spinner {
+  ::ng-deep .p-progress-spinner-circle {
+    stroke: #4461f2 !important;
+  }
+}
+
+.percentage {
+  transform: translate(-50%, -50%);
+}

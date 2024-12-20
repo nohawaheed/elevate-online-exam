@@ -1,0 +1,61 @@
+<p-dialog
+  [closeOnEscape]="false"
+  [modal]="true"
+  [closable]="false"
+  [draggable]="false"
+  [(visible)]="showDialog"
+  [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
+  [style]="{ width: '40rem' }"
+>
+  <div class="flex flex-column mb-3">
+    @for(history of this.examHistory(); track history._id){
+
+    <h4 class="subheader-text block m-0 mb-3 inter inter-500">
+      {{ history.QID.question }}
+    </h4>
+    <div class="flex flex-wrap">
+      @for(answer of history.QID.answers; track answer.key){
+      <div class="col-12 md:col-6">
+        <div
+          class="checkbox-container"
+          [style]="{
+            background:
+              history.chosenAnswer !== history.QID.correct && answer.key
+                ? '#CC1010'
+                : history.QID.correct === answer.key
+                ? ' #CAF9CC'
+                : '#EDEFF3',
+            borderColor:
+              history.chosenAnswer !== history.QID.correct && answer.key
+                ? '#CC1010'
+                : history.QID.correct === answer.key
+                ? ' #CAF9CC'
+                : '#EDEFF3'
+          }"
+        >
+          <input
+            type="radio"
+            [id]="history.QID._id"
+            [value]="history.chosenAnswer"
+            [checked]="history.chosenAnswer === answer.key"
+            [disabled]="history.chosenAnswer === answer.key ? false : true"
+          />
+          <label [for]="history.QID._id" class="ml-2">{{
+            answer.answer
+          }}</label>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+  <div class="flex justify-content-end gap-2">
+    <app-button
+      [disabled]="false"
+      [label]="'Close'"
+      (buttonClicked)="closeModal($event)"
+      [padding]="'0.5rem 6rem'"
+    >
+    </app-button>
+  </div>
+</p-dialog>

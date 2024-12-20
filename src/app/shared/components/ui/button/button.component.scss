@@ -1,0 +1,17 @@
+@import "variables.scss";
+
+::ng-deep{
+    p-button{
+        ::ng-deep{
+            .p-button {
+                    justify-content: center;
+                    align-items: center;
+                    .p-button-label{
+                        font-family: $font-poppins !important;
+                        font-weight: $font-w-400 !important;
+                        flex: unset;
+                    }
+                }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+@import "variables.scss";
+
+.methods{
+    &-continue {
+        overflow: hidden;
+        text-align: center;
+        color: $black;
+      }
+      
+      &-continue::before,
+      &-continue::after {
+        background-color: #E7E7E7;
+        content: "";
+        display: inline-block;
+        height: 0.063rem;
+        position: relative;
+        vertical-align: middle;
+        width: 50%;
+      }
+      
+      &-continue::before {
+        right: 0.5em;
+        margin-left: -50%;
+      }
+      
+      &-continue::after {
+        left: 0.5em;
+        margin-right: -50%;
+      }
+
+    &-social{
+        width: 22.19rem;
+        &_icon{
+            width:4.06rem;
+            height: 4.00rem;
+            border-radius: 0.94rem;
+            border: 1.02px solid #E0E0E9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
