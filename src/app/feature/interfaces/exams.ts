@@ -59,6 +59,7 @@ export interface Subject {
 
 export interface CheckQuestionsRequest {
   answers: AnsweredQuestions[];
+  time: number;
 }
 
 export interface AnsweredQuestions {
@@ -85,22 +86,29 @@ export interface QuestionInfo {
 
 export interface ExamHistory {
   message: string;
-  history: {
+  history: History;
+}
+
+export interface History {
+  _id: string;
+  checkAnswer: string;
+  QID: {
+    answers: Answers[];
+    type: string;
     _id: string;
-    checkAnswer: string;
-    QID: {
-      answers: Answers[];
-      type: string;
-      _id: string;
-      question: string;
-      correct: string;
-      subject: Subject;
-      exam: string;
-      createdAt: string;
-    };
-    user: string;
-    chosenAnswer: string;
-    avgAnswerTime: string;
+    question: string;
+    correct: string;
+    subject: Subject;
+    exam: string;
     createdAt: string;
   };
+  user: string;
+  chosenAnswer: string;
+  avgAnswerTime: string;
+  createdAt: string;
+}
+
+export interface ExamById {
+  message: string;
+  exam: Exam;
 }
