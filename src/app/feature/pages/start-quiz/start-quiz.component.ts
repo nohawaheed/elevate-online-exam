@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, signal } from '@angular/core';
 import { DataViewModule } from 'primeng/dataview';
 import {
-  AnsweredQuestions,
+  CheckQuestionsRequest,
   Exam,
   ExamAdapted,
   Question,
@@ -40,8 +40,12 @@ export class StartQuizComponent implements OnInit {
   showExamModal = signal<boolean>(false);
   showExamResultModal = signal<boolean>(false);
   questionNumber = signal<number>(0);
-  examResult = signal<AnsweredQuestions[]>([]);
+  examResult = signal<CheckQuestionsRequest>({
+    answers: [],
+    time: 0,
+  });
   loading = signal<boolean>(false);
+  time = signal<number>(0);
 
   @Input({ required: true }) subjectId: string = '';
   currentPage: number = 1;
@@ -106,7 +110,7 @@ export class StartQuizComponent implements OnInit {
     }
   }
 
-  showExamResults(results: AnsweredQuestions[]) {
+  showExamResults(results: CheckQuestionsRequest) {
     this.showExamModal.set(false);
     this.showExamResultModal.set(true);
     this.examResult.set(results);

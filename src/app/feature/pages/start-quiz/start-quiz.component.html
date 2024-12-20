@@ -10,9 +10,9 @@
 }@else {
 <app-data-view
   [component]="'StartQuiz'"
-  [exams]="exams()"
+  [examData]="exams()"
   (examQuestions)="setExamQuestions($event)"
-  (showConfirmationDialog)="setConfirmationDialog($event)"
+  (openDialog)="setConfirmationDialog($event)"
 ></app-data-view>
 } @if(examQuestions() && showConfirmationDialog()){
 <app-dialog
