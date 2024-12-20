@@ -4,8 +4,8 @@
   [closable]="false"
   [draggable]="false"
   [(visible)]="showDialog"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-  [style]="{ width: '25rem' }"
+  [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
+  [style]="{ width: '40rem' }"
 >
   <ng-template
     pTemplate="header"
@@ -25,11 +25,7 @@
       <span> {{ examDuration() }}</span>
     </div>
   </ng-template>
-  <form
-    class="flex flex-column mb-3"
-    [formGroup]="questionsForm"
-    (submit)="submit()"
-  >
+  <form class="flex flex-column mb-3" [formGroup]="questionsForm">
     @switch (examQuestion().type) { @case ('single_choice'){
     <h3 class="header-text block m-0 mb-5 inter inter-500">
       {{ examQuestion().question }}
