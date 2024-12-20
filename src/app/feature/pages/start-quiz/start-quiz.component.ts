@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, signal } from '@angular/core';
 import { DataViewModule } from 'primeng/dataview';
 import {
+  AnsweredQuestions,
   Exam,
   ExamAdapted,
-  ExamResult,
   Question,
 } from '../../interfaces/exams';
 import { ExamService } from './../../services/exam.service';
@@ -13,6 +13,7 @@ import { DialogComponent } from '../../../shared/components/ui/dialog/dialog.com
 import { ExamDialogComponent } from '../../../shared/components/ui/exam-dialog/exam-dialog.component';
 import { ResultDialogComponent } from '../../../shared/components/ui/result-dialog/result-dialog.component';
 import { DataViewComponent } from '../../../shared/components/ui/data-view/data-view.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-start-quiz',
@@ -24,6 +25,7 @@ import { DataViewComponent } from '../../../shared/components/ui/data-view/data-
     ExamDialogComponent,
     ResultDialogComponent,
     DataViewComponent,
+    ProgressSpinnerModule,
   ],
   templateUrl: './start-quiz.component.html',
   styleUrl: './start-quiz.component.scss',
@@ -38,7 +40,8 @@ export class StartQuizComponent implements OnInit {
   showExamModal = signal<boolean>(false);
   showExamResultModal = signal<boolean>(false);
   questionNumber = signal<number>(0);
-  examResult = signal<ExamResult[]>([]);
+  examResult = signal<AnsweredQuestions[]>([]);
+  loading = signal<boolean>(false);
 
   @Input({ required: true }) subjectId: string = '';
   currentPage: number = 1;
@@ -52,15 +55,18 @@ export class StartQuizComponent implements OnInit {
     `;
 
   ngOnInit(): void {
+    this.loading.set(true);
     this._examService
       .getExamsOnSubject(this.subjectId, this.currentPage, this.limit)
       .subscribe({
         next: (res: ExamAdapted) => {
           if (res.message === 'success') {
+            this.loading.set(false);
             this.exams.set(res.exams);
           }
         },
         error: (err) => {
+          this.loading.set(false);
           this._messageService.add({
             severity: 'error',
             summary: 'Error',
@@ -100,7 +106,7 @@ export class StartQuizComponent implements OnInit {
     }
   }
 
-  showExamResults(results: ExamResult[]) {
+  showExamResults(results: AnsweredQuestions[]) {
     this.showExamModal.set(false);
     this.showExamResultModal.set(true);
     this.examResult.set(results);

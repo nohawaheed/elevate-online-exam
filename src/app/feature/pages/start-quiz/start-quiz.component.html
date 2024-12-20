@@ -1,11 +1,20 @@
+@if(loading()){
+<div class="card flex justify-content-center align-items-center h-full">
+  <p-progressSpinner
+    styleClass="w-4rem h-4rem"
+    class="spinner"
+    strokeWidth="6"
+    animationDuration=".5s"
+  />
+</div>
+}@else {
 <app-data-view
   [component]="'StartQuiz'"
   [exams]="exams()"
   (examQuestions)="setExamQuestions($event)"
   (showConfirmationDialog)="setConfirmationDialog($event)"
 ></app-data-view>
-
-@if(examQuestions() && showConfirmationDialog()){
+} @if(examQuestions() && showConfirmationDialog()){
 <app-dialog
   [closable]="false"
   [closeOnEscape]="false"
