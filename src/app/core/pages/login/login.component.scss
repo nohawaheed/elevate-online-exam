@@ -1,29 +1,29 @@
-@import 'variables.scss';
+@import "variables.scss";
 
-.login{
-    max-width: 25.625rem;
-    &-forgot{
-        cursor: pointer;
-        margin-bottom: 2.5em !important;  
-        text-decoration: none;    
-        color: $main-color;  
-    }
+.login {
+  max-width: 80%;
+  &-forgot {
+    cursor: pointer;
+    margin-bottom: 2.5em !important;
+    text-decoration: none;
+    color: $main-color;
+  }
 }
-::ng-deep{
-    .p-inputtext{
-        width: 100% !important;
-        font-family: $font-inter !important;
-        font-weight: $font-w-500 !important;
-    }
+::ng-deep {
+  .p-inputtext {
+    width: 100% !important;
+    font-family: $font-inter !important;
+    font-weight: $font-w-500 !important;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .login{
-        max-width: unset;
-    } 
+  .login {
+    max-width: unset;
+  }
 }
 @media screen and (max-width: 400px) {
-    .remember-me{
-        justify-content: center !important;
-    } 
+  .remember-me {
+    justify-content: center !important;
+  }
 }
