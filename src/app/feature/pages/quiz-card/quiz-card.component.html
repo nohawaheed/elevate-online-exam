@@ -1,4 +1,4 @@
-<p-card class="card-container" (click)="emitQuizSubject(quizSubject._id)">
+<p-card class="card-container" [routerLink]="['/quiz/', quizSubject._id]">
   <ng-template pTemplate="header">
     <div class="header">
       <h3 class="m-0 poppins poppins-700 header-title">
@@ -19,6 +19,7 @@
       width="330"
       class="border-round-lg"
       priority
+      [routerLink]="['/quiz/{{quizSubject._id}}']"
     />
   </ng-template>
 </p-card>

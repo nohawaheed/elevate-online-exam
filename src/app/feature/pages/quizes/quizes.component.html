@@ -1,6 +1,3 @@
-@if(quizSubject){
-<app-start-quiz [subjectId]="quizSubject"></app-start-quiz>
-}@else {
 <cdk-virtual-scroll-viewport
   itemSize="292"
   orientation="vertical"
@@ -19,10 +16,6 @@
     *cdkVirtualFor="let item of items; let i = index"
     [class]="'col-12 sm:col-6 lg:col-4 xxl-screen'"
   >
-    <app-quiz-card
-      [quizSubject]="item"
-      (subjectClicked)="startQuiz($event)"
-    ></app-quiz-card>
+    <app-quiz-card [quizSubject]="item"></app-quiz-card>
   </div>
 </cdk-virtual-scroll-viewport>
-}

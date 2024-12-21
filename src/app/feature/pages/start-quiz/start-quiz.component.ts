@@ -35,6 +35,8 @@ export class StartQuizComponent implements OnInit {
     private _examService: ExamService,
     private _messageService: MessageService
   ) {}
+  //get subjectId from url
+  @Input() subjectId!: string;
   exams = signal<Exam[]>([]);
   examQuestions = signal<Question[]>([]);
   showExamModal = signal<boolean>(false);
@@ -46,8 +48,6 @@ export class StartQuizComponent implements OnInit {
   });
   loading = signal<boolean>(false);
   time = signal<number>(0);
-
-  @Input({ required: true }) subjectId: string = '';
   currentPage: number = 1;
   limit: number = 20;
   showConfirmationDialog = signal<boolean>(false);

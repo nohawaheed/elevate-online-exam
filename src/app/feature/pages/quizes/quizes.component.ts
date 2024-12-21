@@ -3,12 +3,11 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SubjectAdapted, Subject } from '../../interfaces/subject';
 import { QuizCardComponent } from '../quiz-card/quiz-card.component';
 import { ExamService } from '../../services/exam.service';
-import { StartQuizComponent } from '../start-quiz/start-quiz.component';
 
 @Component({
   selector: 'app-quizes',
   standalone: true,
-  imports: [ScrollingModule, QuizCardComponent, StartQuizComponent],
+  imports: [ScrollingModule, QuizCardComponent],
   templateUrl: './quizes.component.html',
   styleUrl: './quizes.component.scss',
 })
@@ -20,7 +19,6 @@ export class QuizesComponent {
   limit: number = 20;
   isLoading: boolean = false;
   errorMessage: string = '';
-  quizSubject: string = '';
 
   onScrolled(index: number) {
     const buffer = this.limit / 2;
@@ -53,9 +51,5 @@ export class QuizesComponent {
           this.isLoading = false;
         },
       });
-  }
-
-  startQuiz(quizSubject: string) {
-    this.quizSubject = quizSubject;
   }
 }

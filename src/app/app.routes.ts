@@ -59,6 +59,14 @@ export const routes: Routes = [
         canActivate: [authGuard],
       },
       {
+        path: 'quiz/:subjectId',
+        loadComponent: () =>
+          import('./feature/pages/start-quiz/start-quiz.component').then(
+            (c) => c.StartQuizComponent
+          ),
+        canActivate: [authGuard],
+      },
+      {
         path: 'quiz-history',
         loadComponent: () =>
           import('./feature/pages/quiz-history/quiz-history.component').then(

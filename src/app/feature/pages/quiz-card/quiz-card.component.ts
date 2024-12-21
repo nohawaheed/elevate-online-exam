@@ -1,12 +1,13 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Subject } from '../../interfaces/subject';
 import { CardModule } from 'primeng/card';
 import { NgOptimizedImage } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-quiz-card',
   standalone: true,
-  imports: [CardModule, NgOptimizedImage],
+  imports: [CardModule, NgOptimizedImage, RouterLink],
   templateUrl: './quiz-card.component.html',
   styleUrl: './quiz-card.component.scss',
 })
@@ -17,9 +18,4 @@ export class QuizCardComponent {
     icon: '',
     createdAt: '',
   };
-  subjectClicked = output<string>();
-
-  emitQuizSubject(subjectId: string) {
-    this.subjectClicked.emit(subjectId);
-  }
 }
