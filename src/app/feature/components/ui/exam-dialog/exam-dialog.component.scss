@@ -16,9 +16,14 @@
   .p-dialog-header-icons {
     display: none !important;
   }
-  .p-stepper .p-stepper-panels,
-  .p-stepper-header {
-    padding: unset;
+  .p-stepper {
+    .p-stepper-panels,
+    .p-stepper-header {
+      padding: unset;
+    }
+    .p-stepper-separator {
+      display: none;
+    }
   }
 }
 

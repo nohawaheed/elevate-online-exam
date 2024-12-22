@@ -23,11 +23,11 @@
           <span> {{ examDuration() }}</span>
         </div>
       </div>
-      <div class="card flex justify-content-space-between">
-        <p-stepper>
+      <div class="card hidden xl:flex justify-content-space-between">
+        <p-stepper style="flex-basis: 100%">
+          @for(question of allExamQuestions(); track $index){
           <p-stepperPanel>
             <ng-template pTemplate="header">
-              @for(question of allExamQuestions(); track $index){
               <i
                 class="pi pi-circle-fill"
                 style="font-size: 0.63rem; padding: 0.5rem"
@@ -36,9 +36,9 @@
                   'not-active': $index > questionNumber()
                 }"
               ></i>
-              }
             </ng-template>
           </p-stepperPanel>
+          }
         </p-stepper>
       </div>
     </div>
