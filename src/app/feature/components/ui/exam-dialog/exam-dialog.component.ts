@@ -82,6 +82,8 @@ export class ExamDialogComponent implements OnInit, OnDestroy {
   emitAction(action: string) {
     this.buttonClicked.emit(action);
     if (action === 'Next') {
+      //reset form value to null
+      this.questionsForm.reset();
       //emit exam result if next is the last question
       if (this.allExamQuestions().length === this.questionNumber() + 1) {
         this.finalResult.emit({
