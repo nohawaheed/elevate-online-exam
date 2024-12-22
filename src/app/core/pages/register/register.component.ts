@@ -49,48 +49,44 @@ export class RegisterComponent implements OnInit, OnDestroy {
   loading: boolean = false;
 
   ngOnInit() {
-    this.registerForm = new FormGroup({
-      username: new FormControl<string | null>(null, [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(25),
-      ]),
-      firstName: new FormControl<string | null>(null, [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(20),
-      ]),
-      lastName: new FormControl<string | null>(null, [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(20),
-      ]),
-      email: new FormControl<string | null>(null, [
-        Validators.email,
-        Validators.required,
-      ]),
-      password: new FormControl<string | null>(null, [
-        Validators.required,
-        Validators.pattern(/^(?=.*[A-Za-z])(?=.*[@$!%*#?&^_-]).{8,}/),
-      ]),
-      confirmPassword: new FormControl<string | null>(null, [
-        Validators.required,
-        this._authService.passwordMatchValidator(),
-      ]),
-      phone: new FormControl<string | null>(null, [
-        Validators.required,
-        Validators.pattern('^01[0,1,2,5][0-9]{8}$'),
-      ]),
-    });
-
-    this.registerForm
-      .get('password')
-      ?.valueChanges.pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        return this.registerForm
-          .get('confirmPassword')
-          ?.updateValueAndValidity();
-      });
+    this.registerForm = new FormGroup(
+      {
+        username: new FormControl<string | null>(null, [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(25),
+        ]),
+        firstName: new FormControl<string | null>(null, [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(20),
+        ]),
+        lastName: new FormControl<string | null>(null, [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(20),
+        ]),
+        email: new FormControl<string | null>(null, [
+          Validators.email,
+          Validators.required,
+        ]),
+        password: new FormControl<string | null>(null, [
+          Validators.required,
+          Validators.pattern(/^(?=.*[A-Za-z])(?=.*[@$!%*#?&^_-]).{8,}/),
+        ]),
+        confirmPassword: new FormControl<string | null>(null, [
+          Validators.required,
+        ]),
+        phone: new FormControl<string | null>(null, [
+          Validators.required,
+          Validators.pattern('^01[0,1,2,5][0-9]{8}$'),
+        ]),
+      },
+      {
+        // error will be thrown on the form group level
+        validators: this._authService.passwordMatchValidator(),
+      }
+    );
   }
 
   submit() {

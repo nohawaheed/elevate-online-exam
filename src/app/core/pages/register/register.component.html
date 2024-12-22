@@ -156,10 +156,11 @@
         "
         [toggleMask]="true"
       ></p-password>
-      @if(registerForm.get('confirmPassword')?.errors &&
+      @if((registerForm.get('confirmPassword')?.errors ||
+      registerForm.errors?.['passwordMismatch']) &&
       (registerForm.get('confirmPassword')?.touched ||
       registerForm.get('confirmPassword')?.dirty)){
-      @if(registerForm.get('confirmPassword')?.errors?.['passwordMismatch']){
+      @if(registerForm.errors?.['passwordMismatch']){
       <app-error-message
         [message]="'Passwords do not match'"
       ></app-error-message>

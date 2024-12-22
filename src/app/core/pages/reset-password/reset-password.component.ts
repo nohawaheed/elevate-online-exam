@@ -49,25 +49,19 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   email: InputSignal<string> = input.required<string>();
 
   ngOnInit(): void {
-    this.resetPasswordForm = new FormGroup({
-      password: new FormControl<string | null>(null, [
-        Validators.required,
-        Validators.pattern(/^(?=.*[A-Za-z])(?=.*[@$!%*#?&^_-]).{8,}/),
-      ]),
-      rePassword: new FormControl<string | null>(null, [
-        Validators.required,
-        this._authService.passwordMatchValidator(),
-      ]),
-    });
-
-    this.resetPasswordForm
-      .get('password')
-      ?.valueChanges.pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        return this.resetPasswordForm
-          .get('rePassword')
-          ?.updateValueAndValidity();
-      });
+    this.resetPasswordForm = new FormGroup(
+      {
+        password: new FormControl<string | null>(null, [
+          Validators.required,
+          Validators.pattern(/^(?=.*[A-Za-z])(?=.*[@$!%*#?&^_-]).{8,}/),
+        ]),
+        rePassword: new FormControl<string | null>(null, [Validators.required]),
+      },
+      {
+        // error will be thrown on the form group level
+        validators: this._authService.passwordMatchValidator(),
+      }
+    );
   }
   submit() {
     this.loading = true;
