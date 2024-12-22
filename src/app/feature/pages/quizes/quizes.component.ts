@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { SubjectAdapted, Subject } from '../../interfaces/subject';
-import { QuizCardComponent } from '../quiz-card/quiz-card.component';
-import { ExamService } from '../../services/exam.service';
+import {
+  SubjectAdapted,
+  Subject,
+} from '../../components/business/interfaces/subject';
+import { QuizCardComponent } from '../../components/ui/quiz-card/quiz-card.component';
+import { ExamService } from '../../components/business/services/exam.service';
 
 @Component({
   selector: 'app-quizes',

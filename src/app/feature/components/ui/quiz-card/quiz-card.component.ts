@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Subject } from '../../interfaces/subject';
+import { Subject } from '../../business/interfaces/subject';
 import { CardModule } from 'primeng/card';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';

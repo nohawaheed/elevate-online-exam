@@ -4,9 +4,9 @@ import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ErrorMessage, LogoutResponse, NgxAuthApiService } from 'ngx-auth-api';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../../core/services/auth.service';
 import { ToastModule } from 'primeng/toast';
-import { DialogComponent } from '../../../shared/components/ui/dialog/dialog.component';
+import { DialogComponent } from '../dialog/dialog.component';
 import { ButtonModule } from 'primeng/button';
 
 @Component({

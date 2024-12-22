@@ -15,7 +15,7 @@ import {
   Question,
   AnsweredQuestions,
   CheckQuestionsRequest,
-} from '../../../../feature/interfaces/exams';
+} from '../../business/interfaces/exams';
 import { AuthService } from '../../../../core/services/auth.service';
 import { map, Subject, takeUntil, takeWhile, timer } from 'rxjs';
 import {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HomeNavbarComponent } from '../home-navbar/home-navbar.component';
+import { HomeNavbarComponent } from '../../../shared/components/ui/home-navbar/home-navbar.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({

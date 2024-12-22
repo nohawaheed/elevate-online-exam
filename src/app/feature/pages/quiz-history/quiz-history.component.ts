@@ -1,9 +1,9 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { DataViewComponent } from '../../../shared/components/ui/data-view/data-view.component';
-import { ExamService } from '../../services/exam.service';
-import { Exam, History } from '../../interfaces/exams';
+import { DataViewComponent } from '../../components/ui/data-view/data-view.component';
+import { ExamService } from '../../components/business/services/exam.service';
+import { Exam, History } from '../../components/business/interfaces/exams';
 import { switchMap } from 'rxjs';
-import { AnswersDialogComponent } from '../../../shared/components/ui/answers-dialog/answers-dialog.component';
+import { AnswersDialogComponent } from '../../components/ui/answers-dialog/answers-dialog.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({

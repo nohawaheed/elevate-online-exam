@@ -14,8 +14,8 @@ import { ChartModule } from 'primeng/chart';
 import {
   CheckQuestionsRequest,
   CheckQuestionsResponse,
-} from '../../../../feature/interfaces/exams';
-import { ExamService } from '../../../../feature/services/exam.service';
+} from '../../business/interfaces/exams';
+import { ExamService } from '../../business/services/exam.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Router } from '@angular/router';
 

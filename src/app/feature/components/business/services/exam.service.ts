@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ExamEndpoint } from '../enums/exam-endpoints';
 import { map, Observable } from 'rxjs';
 import { AllSubjects, SubjectAdapted } from '../interfaces/subject';
-import { SubjectAdapter } from '../adapter/subject.adapter';
+import { SubjectAdapter } from '../../../pages/quizes/adapter/subject.adapter';
 import {
   AllExams,
   CheckQuestionsRequest,
@@ -14,7 +14,7 @@ import {
   ExamHistory,
   ExamQuestions,
 } from '../interfaces/exams';
-import { ExamAdapter } from '../adapter/exam.adapter';
+import { ExamAdapter } from '../../../pages/start-quiz/adapter/exam.adapter';
 
 @Injectable({
   providedIn: 'root',

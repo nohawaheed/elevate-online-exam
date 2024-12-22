@@ -5,14 +5,14 @@ import {
   Exam,
   ExamAdapted,
   Question,
-} from '../../interfaces/exams';
-import { ExamService } from './../../services/exam.service';
+} from '../../components/business/interfaces/exams';
+import { ExamService } from '../../components/business/services/exam.service';
 import { MessageService } from 'primeng/api';
 import { SkeletonModule } from 'primeng/skeleton';
 import { DialogComponent } from '../../../shared/components/ui/dialog/dialog.component';
-import { ExamDialogComponent } from '../../../shared/components/ui/exam-dialog/exam-dialog.component';
-import { ResultDialogComponent } from '../../../shared/components/ui/result-dialog/result-dialog.component';
-import { DataViewComponent } from '../../../shared/components/ui/data-view/data-view.component';
+import { ExamDialogComponent } from '../../components/ui/exam-dialog/exam-dialog.component';
+import { ResultDialogComponent } from '../../components/ui/result-dialog/result-dialog.component';
+import { DataViewComponent } from '../../components/ui/data-view/data-view.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({

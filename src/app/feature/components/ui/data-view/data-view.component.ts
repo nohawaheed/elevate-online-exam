@@ -6,12 +6,12 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { Exam, History, Question } from '../../../../feature/interfaces/exams';
+import { Exam, History, Question } from '../../business/interfaces/exams';
 import { DataViewModule } from 'primeng/dataview';
 import { SkeletonModule } from 'primeng/skeleton';
-import { ExamService } from '../../../../feature/services/exam.service';
+import { ExamService } from '../../business/services/exam.service';
 import { MessageService } from 'primeng/api';
-import { ButtonComponent } from '../button/button.component';
+import { ButtonComponent } from '../../../../shared/components/ui/button/button.component';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

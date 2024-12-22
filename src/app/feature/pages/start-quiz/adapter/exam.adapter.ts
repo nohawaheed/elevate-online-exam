@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Adapter } from './../interfaces/adapter';
-import { AllExams, ExamAdapted } from '../interfaces/exams';
+import { Adapter } from '../../../components/business/interfaces/adapter';
+import {
+  AllExams,
+  ExamAdapted,
+} from '../../../components/business/interfaces/exams';
 
 @Injectable({
   providedIn: 'root',

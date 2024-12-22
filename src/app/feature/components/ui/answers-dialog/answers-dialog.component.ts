@@ -1,7 +1,7 @@
 import { Component, input, InputSignal, model } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { History } from '../../../../feature/interfaces/exams';
-import { ButtonComponent } from '../button/button.component';
+import { History } from '../../business/interfaces/exams';
+import { ButtonComponent } from '../../../../shared/components/ui/button/button.component';
 
 @Component({
   selector: 'app-answers-dialog',
