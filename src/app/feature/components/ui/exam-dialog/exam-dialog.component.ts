@@ -25,11 +25,18 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { StepperModule } from 'primeng/stepper';
 
 @Component({
   selector: 'app-exam-dialog',
   standalone: true,
-  imports: [DialogModule, RadioButtonModule, ButtonModule, ReactiveFormsModule],
+  imports: [
+    DialogModule,
+    RadioButtonModule,
+    ButtonModule,
+    ReactiveFormsModule,
+    StepperModule,
+  ],
   templateUrl: './exam-dialog.component.html',
   styleUrl: './exam-dialog.component.scss',
 })

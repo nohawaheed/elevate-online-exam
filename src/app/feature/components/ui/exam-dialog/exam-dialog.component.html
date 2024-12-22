@@ -7,22 +7,40 @@
   [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
   [style]="{ width: '40rem' }"
 >
-  <ng-template
-    pTemplate="header"
-    class="flex justify-content-between align-items-center"
-  >
-    <h4 class="subheader-text block m-0 inter inter-500">
-      {{
-        "Question " +
-          (questionNumber() + 1) +
-          " of " +
-          allExamQuestions().length
-      }}
-    </h4>
-
-    <div>
-      <i class="pi pi-stopwatch pr-1" style="font-size: 1rem"></i>
-      <span> {{ examDuration() }}</span>
+  <ng-template pTemplate="header">
+    <div class="flex flex-column w-full">
+      <div class="flex justify-content-between align-items-center mb-3">
+        <h4 class="subheader-text block m-0 inter inter-500">
+          {{
+            "Question " +
+              (questionNumber() + 1) +
+              " of " +
+              allExamQuestions().length
+          }}
+        </h4>
+        <div>
+          <i class="pi pi-stopwatch pr-1" style="font-size: 1rem"></i>
+          <span> {{ examDuration() }}</span>
+        </div>
+      </div>
+      <div class="card flex justify-content-space-between">
+        <p-stepper>
+          <p-stepperPanel>
+            <ng-template pTemplate="header">
+              @for(question of allExamQuestions(); track $index){
+              <i
+                class="pi pi-circle-fill"
+                style="font-size: 0.63rem; padding: 0.5rem"
+                [class]="{
+                  active: $index <= questionNumber(),
+                  'not-active': $index > questionNumber()
+                }"
+              ></i>
+              }
+            </ng-template>
+          </p-stepperPanel>
+        </p-stepper>
+      </div>
     </div>
   </ng-template>
   <form class="flex flex-column mb-3" [formGroup]="questionsForm">

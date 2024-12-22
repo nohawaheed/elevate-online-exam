@@ -16,4 +16,15 @@
   .p-dialog-header-icons {
     display: none !important;
   }
+  .p-stepper .p-stepper-panels,
+  .p-stepper-header {
+    padding: unset;
+  }
+}
+
+.active {
+  color: $main-color;
+}
+.not-active {
+  color: #d9d9d9;
 }
