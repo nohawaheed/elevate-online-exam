@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import {
   SubjectAdapted,
-  Subject,
+  ExamSubject,
 } from '../../components/business/interfaces/subject';
 import { QuizCardComponent } from '../../components/ui/quiz-card/quiz-card.component';
 import { ExamService } from '../../components/business/services/exam.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-quizes',
@@ -14,14 +15,15 @@ import { ExamService } from '../../components/business/services/exam.service';
   templateUrl: './quizes.component.html',
   styleUrl: './quizes.component.scss',
 })
-export class QuizesComponent {
+export class QuizesComponent implements OnDestroy {
   constructor(private _examService: ExamService) {}
-  items: Subject[] = [];
+  items: ExamSubject[] = [];
   currentPage: number = 0;
   numberOfPages: number = 1;
   limit: number = 20;
   isLoading: boolean = false;
   errorMessage: string = '';
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   onScrolled(index: number) {
     const buffer = this.limit / 2;
@@ -38,6 +40,7 @@ export class QuizesComponent {
     this.isLoading = true;
     this._examService
       .getSubjectsWithLimit(this.currentPage + 1, this.limit)
+      .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res: SubjectAdapted) => {
           this.items = [...this.items, ...res.subjects];
@@ -54,5 +57,10 @@ export class QuizesComponent {
           this.isLoading = false;
         },
       });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

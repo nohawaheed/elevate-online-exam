@@ -4,6 +4,7 @@ import {
   Input,
   InputSignal,
   model,
+  OnDestroy,
   OnInit,
   output,
   signal,
@@ -18,6 +19,7 @@ import {
 import { ExamService } from '../../business/services/exam.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-result-dialog',
@@ -26,7 +28,7 @@ import { Router } from '@angular/router';
   templateUrl: './result-dialog.component.html',
   styleUrl: './result-dialog.component.scss',
 })
-export class ResultDialogComponent implements OnInit {
+export class ResultDialogComponent implements OnInit, OnDestroy {
   constructor(private _examService: ExamService, private router: Router) {}
 
   @Input() confirmLabel: string = '';
@@ -44,6 +46,7 @@ export class ResultDialogComponent implements OnInit {
   inCorrect = signal<number>(0);
   total = signal<string>('');
   loading = signal<boolean>(false);
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   data: any;
   options: any;
@@ -56,6 +59,7 @@ export class ResultDialogComponent implements OnInit {
   getExamResult() {
     this._examService
       .checkExamQuestions(this.examResult())
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res: CheckQuestionsResponse) => {
         if (res.message === 'success') {
           this.loading.set(false);
@@ -85,5 +89,10 @@ export class ResultDialogComponent implements OnInit {
       this.router.navigate(['/quiz-history']);
     }
     this.buttonClicked.emit(action);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

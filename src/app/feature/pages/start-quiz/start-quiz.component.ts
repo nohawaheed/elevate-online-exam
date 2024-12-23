@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, signal } from '@angular/core';
 import { DataViewModule } from 'primeng/dataview';
 import {
   CheckQuestionsRequest,
@@ -14,6 +14,7 @@ import { ExamDialogComponent } from '../../components/ui/exam-dialog/exam-dialog
 import { ResultDialogComponent } from '../../components/ui/result-dialog/result-dialog.component';
 import { DataViewComponent } from '../../components/ui/data-view/data-view.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-start-quiz',
@@ -30,7 +31,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   templateUrl: './start-quiz.component.html',
   styleUrl: './start-quiz.component.scss',
 })
-export class StartQuizComponent implements OnInit {
+export class StartQuizComponent implements OnInit, OnDestroy {
   constructor(
     private _examService: ExamService,
     private _messageService: MessageService
@@ -51,6 +52,7 @@ export class StartQuizComponent implements OnInit {
   currentPage: number = 1;
   limit: number = 20;
   showConfirmationDialog = signal<boolean>(false);
+  destroy$: Subject<boolean> = new Subject<boolean>();
   instructions: string = `
       Lorem ipsum dolor sit amet consectetur.
       Lorem ipsum dolor sit amet consectetur.
@@ -62,6 +64,7 @@ export class StartQuizComponent implements OnInit {
     this.loading.set(true);
     this._examService
       .getExamsOnSubject(this.subjectId, this.currentPage, this.limit)
+      .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res: ExamAdapted) => {
           if (res.message === 'success') {
@@ -114,5 +117,10 @@ export class StartQuizComponent implements OnInit {
     this.showExamModal.set(false);
     this.showExamResultModal.set(true);
     this.examResult.set(results);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

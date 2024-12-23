@@ -1,8 +1,8 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { DataViewComponent } from '../../components/ui/data-view/data-view.component';
 import { ExamService } from '../../components/business/services/exam.service';
 import { Exam, History } from '../../components/business/interfaces/exams';
-import { switchMap } from 'rxjs';
+import { Subject, switchMap, take, takeUntil } from 'rxjs';
 import { AnswersDialogComponent } from '../../components/ui/answers-dialog/answers-dialog.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
@@ -13,12 +13,13 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   templateUrl: './quiz-history.component.html',
   styleUrl: './quiz-history.component.scss',
 })
-export class QuizHistoryComponent implements OnInit {
+export class QuizHistoryComponent implements OnInit, OnDestroy {
   constructor(private _examService: ExamService) {}
   history = signal<History[]>([]);
   examInfo = signal<Exam>({} as Exam);
   showAnswersModal = signal<boolean>(false);
   loading = signal<boolean>(false);
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   ngOnInit(): void {
     this.loading.set(true);
@@ -28,7 +29,8 @@ export class QuizHistoryComponent implements OnInit {
         switchMap((exam) => {
           this.history.set([exam.history]);
           return this._examService.getExamById(exam.history.QID.exam);
-        })
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe({
         next: (res) => {
@@ -42,5 +44,10 @@ export class QuizHistoryComponent implements OnInit {
 
   showAnswers(showAnswersDialog: boolean) {
     this.showAnswersModal.set(showAnswersDialog);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

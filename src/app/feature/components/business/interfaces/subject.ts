@@ -6,9 +6,9 @@ export interface AllSubjects {
     limit: number;
     nextPage: number;
   };
-  subjects: Subject[];
+  subjects: ExamSubject[];
 }
-export interface Subject {
+export interface ExamSubject {
   _id: string;
   name: string;
   icon: string;
@@ -21,5 +21,5 @@ export interface SubjectAdapted {
     currentPage: number;
     numberOfPages: number;
   };
-  subjects: Subject[];
+  subjects: ExamSubject[];
 }
