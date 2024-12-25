@@ -7,11 +7,12 @@ import {
 import { QuizCardComponent } from '../../components/ui/quiz-card/quiz-card.component';
 import { ExamService } from '../../components/business/services/exam.service';
 import { Subject, takeUntil } from 'rxjs';
+import { ProfileComponent } from '../../components/ui/profile/profile.component';
 
 @Component({
   selector: 'app-quizes',
   standalone: true,
-  imports: [ScrollingModule, QuizCardComponent],
+  imports: [ScrollingModule, QuizCardComponent, ProfileComponent],
   templateUrl: './quizes.component.html',
   styleUrl: './quizes.component.scss',
 })

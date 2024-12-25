@@ -13,11 +13,12 @@ import { ExamService } from '../../business/services/exam.service';
 import { MessageService } from 'primeng/api';
 import { ButtonComponent } from '../../../../shared/components/ui/button/button.component';
 import { Subject, takeUntil } from 'rxjs';
+import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
   selector: 'app-data-view',
   standalone: true,
-  imports: [DataViewModule, SkeletonModule, ButtonComponent],
+  imports: [DataViewModule, SkeletonModule, ButtonComponent, ProfileComponent],
   templateUrl: './data-view.component.html',
   styleUrl: './data-view.component.scss',
 })
