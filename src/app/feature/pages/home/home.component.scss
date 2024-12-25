@@ -1,0 +1,31 @@
+@import "functions.scss";
+@import "variables.scss";
+
+.main-content {
+  max-width: 66.44rem;
+  height: 100%;
+}
+.navbar {
+  max-width: changeToRem(193px);
+}
+
+@media screen and (min-width: 1366px) {
+  .navbar {
+    margin-right: changeToRem(72px);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .main {
+    flex-direction: column !important;
+  }
+  .navbar {
+    max-width: unset;
+    background-color: $main-color;
+    margin-right: 0px;
+    width: 100%;
+  }
+  .main-content {
+    width: 100%;
+  }
+}

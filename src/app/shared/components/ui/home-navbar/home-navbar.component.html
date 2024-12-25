@@ -10,7 +10,7 @@
       <img
         src="/assets/images/logo.png"
         height="29"
-        class="p-mr-2 mb-6"
+        class="mb-4 md:mb-6"
         alt="brand logo"
       />
     </ng-template>
@@ -30,6 +30,10 @@
 <p-button
   icon="pi pi-bars"
   (click)="menu.toggle($event)"
-  [style]="{ color: '#fff', background: '#4461f2' }"
+  [style]="{
+    color: '#fff',
+    background: '#4461f2',
+    position: 'sticky',
+  }"
   [style.display]="mobileView() ? 'flex' : 'none'"
 />

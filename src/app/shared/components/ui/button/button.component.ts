@@ -18,6 +18,7 @@ export class ButtonComponent {
   @Input() color: string = '#fff';
   @Input() loading: boolean = false;
   @Input() fontSize: string = '1rem';
+  @Input() borderRadius: string = '';
   disabled: InputSignal<boolean> = input.required<boolean>();
   buttonClicked = output<boolean>();
 

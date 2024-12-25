@@ -1,9 +1,13 @@
-<main class="w-full">
-  <div class="flex flex-column md:flex-row justify-content-between">
-    <div class="col-12 md:col-2">
-      <app-home-navbar></app-home-navbar>
-    </div>
-    <div class="col-12 md:col-9 lg:col-offset-1">
+<main
+  class="main flex flex-column lg:flex-row md:justify-content-between lg:justify-content-center gap-2"
+>
+  <div class="col-12 lg:col-2 navbar">
+    <app-home-navbar
+      class="flex justify-content-center flex-column"
+    ></app-home-navbar>
+  </div>
+  <div class="col-12 lg:col-10 main-content">
+    <div class="content-wrapper">
       <router-outlet></router-outlet>
     </div>
   </div>

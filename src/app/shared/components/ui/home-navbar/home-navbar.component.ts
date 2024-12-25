@@ -36,7 +36,7 @@ export class HomeNavbarComponent {
 
   @HostListener('window:resize', ['$event']) onResize(event: any) {
     if (this._authService.isPlatformBrowser()) {
-      this.mobileView.set(window.matchMedia('(max-width: 768px)').matches);
+      this.mobileView.set(window.matchMedia('(max-width: 992px)').matches);
     }
   }
 
@@ -47,13 +47,13 @@ export class HomeNavbarComponent {
         label: 'Dashboard',
         icon: 'pi pi-home',
         routerLink: ['/dashboard'],
-        styleClass: 'poppins poppins-500 mb-5',
+        styleClass: 'poppins poppins-500 mb-4 md:mb-5',
       },
       {
         label: 'Quiz History',
         icon: 'pi pi-history',
         routerLink: ['/quiz-history'],
-        styleClass: 'poppins poppins-500 mb-6',
+        styleClass: 'poppins poppins-500 mb-5 md:mb-6',
       },
       {
         label: 'Log Out',
