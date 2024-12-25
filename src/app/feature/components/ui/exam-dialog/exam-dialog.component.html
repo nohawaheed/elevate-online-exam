@@ -68,10 +68,10 @@
     </div>
     } } }
     <div class="flex justify-content-end gap-2">
-      @if(cancelLabel){
+      @if(cancelLabel()){
       <p-button
         [disabled]="questionNumber() === 0"
-        [label]="cancelLabel"
+        [label]="cancelLabel()"
         [outlined]="true"
         [style]="{
           color: '#4461f2',
@@ -79,19 +79,19 @@
           width: '100%'
         }"
         [style.width]="'100%'"
-        (onClick)="emitAction(cancelLabel)"
+        (onClick)="emitAction(cancelLabel())"
       />
-      } @if(confirmLabel){
+      } @if(confirmLabel()){
       <p-button
         [disabled]="!questionsForm.valid"
-        [label]="confirmLabel"
+        [label]="confirmLabel()"
         [style]="{
           background: '#4461f2',
           borderRadius: '100px',
           width: '100%'
         }"
         [style.width]="'100%'"
-        (onClick)="emitAction(confirmLabel)"
+        (onClick)="emitAction(confirmLabel())"
       />
       }
     </div>

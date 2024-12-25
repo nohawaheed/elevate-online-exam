@@ -31,13 +31,11 @@ import { Subject, takeUntil } from 'rxjs';
 export class ResultDialogComponent implements OnInit, OnDestroy {
   constructor(private _examService: ExamService, private router: Router) {}
 
-  @Input() confirmLabel: string = '';
-  @Input() cancelLabel: string = '';
-  @Input() closeOnEscape: boolean = false;
-  @Input() closable: boolean = false;
-  @Input() header: string = '';
-  @Input() modal: boolean = false;
-  @Input() color: string = '#4461f2';
+  confirmLabel: InputSignal<string> = input<string>('');
+  cancelLabel: InputSignal<string> = input<string>('');
+  header: InputSignal<string> = input<string>('');
+  modal: InputSignal<boolean> = input<boolean>(false);
+  color: InputSignal<string> = input<string>('#4461f2');
 
   examResult: InputSignal<CheckQuestionsRequest> = input.required();
   showDialog = model(false);

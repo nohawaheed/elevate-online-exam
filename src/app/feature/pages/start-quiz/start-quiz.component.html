@@ -36,8 +36,6 @@
 ></app-exam-dialog>
 } @else if(showExamResultModal()){
 <app-result-dialog
-  [closable]="false"
-  [closeOnEscape]="false"
   [modal]="true"
   [header]="'Your score'"
   [examResult]="examResult()"

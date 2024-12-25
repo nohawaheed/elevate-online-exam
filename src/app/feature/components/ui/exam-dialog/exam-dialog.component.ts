@@ -1,6 +1,5 @@
 import {
   Component,
-  Input,
   model,
   output,
   InputSignal,
@@ -41,9 +40,8 @@ import { StepperModule } from 'primeng/stepper';
   styleUrl: './exam-dialog.component.scss',
 })
 export class ExamDialogComponent implements OnInit, OnDestroy {
-  @Input() confirmLabel: string = 'Next';
-  @Input() cancelLabel: string = 'Back';
-  @Input() header: string = '';
+  confirmLabel: InputSignal<string> = input<string>('Next');
+  cancelLabel: InputSignal<string> = input<string>('Back');
   allExamQuestions: InputSignal<Question[]> = input.required();
   examQuestion: InputSignal<Question> = input.required();
   questionNumber: InputSignal<number> = input.required();

@@ -1,8 +1,8 @@
-<p-card class="card-container" [routerLink]="['/quiz/', quizSubject._id]">
+<p-card class="card-container" [routerLink]="['/quiz/', quizSubject()._id]">
   <ng-template pTemplate="header">
     <div class="header">
       <h3 class="m-0 poppins poppins-700 header-title">
-        {{ quizSubject.name }}
+        {{ quizSubject().name }}
       </h3>
       <p class="m-0 poppins poppins-500 header-subtitle">
         Voluptatem aut ut dignissimos blanditiis
@@ -13,13 +13,12 @@
   <ng-template pTemplate="body">
     <img
       alt="Card"
-      [ngSrc]="quizSubject.icon"
+      [ngSrc]="quizSubject().icon"
       [class]="'w-full h-full'"
       height="292"
       width="330"
       class="border-round-lg"
       priority
-      [routerLink]="['/quiz/{{quizSubject._id}}']"
     />
   </ng-template>
 </p-card>
