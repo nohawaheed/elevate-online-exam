@@ -1,0 +1,47 @@
+@import "functions.scss";
+@import "variables.scss";
+.profile {
+  margin-bottom: changeToRem(40px);
+  max-width: 66.44rem;
+
+  &-search {
+    border-radius: changeToRem(20px);
+    background-color: #fff;
+    color: $text-color;
+    padding: 1rem;
+  }
+  ::ng-deep {
+    .p-avatar {
+      width: changeToRem(61px);
+      height: changeToRem(61px);
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .profile {
+    position: absolute;
+    top: 0rem;
+    right: 0.5rem;
+    margin-bottom: unset;
+    &-search {
+      padding: 0.5rem !important;
+    }
+    &-btn {
+      display: none !important;
+    }
+    ::ng-deep {
+      .p-avatar {
+        width: changeToRem(40px);
+        height: changeToRem(40px);
+      }
+    }
+  }
+}
+@media screen and (max-width: 375px) {
+  .profile {
+    &-search {
+      display: none !important;
+    }
+  }
+}
