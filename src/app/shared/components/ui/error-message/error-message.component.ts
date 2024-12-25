@@ -1,14 +1,14 @@
-import { Component, Input} from '@angular/core';
+import { Component, input, InputSignal } from '@angular/core';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-error-message',
   standalone: true,
-  imports: [MessagesModule,ToastModule],
+  imports: [MessagesModule, ToastModule],
   templateUrl: './error-message.component.html',
-  styleUrl: './error-message.component.scss'
+  styleUrl: './error-message.component.scss',
 })
 export class ErrorMessageComponent {
-  @Input() message : string | null = null ;
+  message: InputSignal<string | null> = input<string | null>(null);
 }

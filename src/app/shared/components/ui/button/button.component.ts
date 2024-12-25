@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, Input, InputSignal, output } from '@angular/core';
+import { Component, input, InputSignal, output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -10,15 +10,15 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-  @Input() label: string = 'Add';
-  @Input() type: string = 'button';
-  @Input() padding: string = '1rem 0rem';
-  @Input() width: string = '100%';
-  @Input() background: string = '#4461f2';
-  @Input() color: string = '#fff';
-  @Input() loading: boolean = false;
-  @Input() fontSize: string = '1rem';
-  @Input() borderRadius: string = '';
+  label: InputSignal<string> = input<string>('Add');
+  type: InputSignal<string> = input<string>('button');
+  padding: InputSignal<string> = input<string>('1rem 0rem');
+  width: InputSignal<string> = input<string>('100%');
+  background: InputSignal<string> = input<string>('#4461f2');
+  color: InputSignal<string> = input<string>('#fff');
+  loading: InputSignal<boolean> = input<boolean>(false);
+  fontSize: InputSignal<string> = input<string>('1rem');
+  borderRadius: InputSignal<string> = input<string>('');
   disabled: InputSignal<boolean> = input.required<boolean>();
   buttonClicked = output<boolean>();
 
