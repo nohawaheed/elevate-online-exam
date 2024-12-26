@@ -1,0 +1,17 @@
+<p-button
+  [loading]="loading()"
+  [style]="{
+    padding: padding(),
+    width: width(),
+    background: background(),
+    'border-color': background(),
+    color: color(),
+    fontSize: fontSize(),
+    'border-radius': borderRadius(),
+  }"
+  [label]="label()"
+  [type]="type()"
+  [rounded]="true"
+  [disabled]="disabled()"
+  (click)="onButtonClicked($event)"
+></p-button>

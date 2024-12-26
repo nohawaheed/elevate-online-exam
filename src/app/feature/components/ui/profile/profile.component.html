@@ -1,0 +1,23 @@
+<div class="flex align-items-center justify-content-between gap-2 profile">
+  <input
+    type="text"
+    pInputText
+    placeholder="Search Quiz"
+    class="md:col-9 profile-search"
+  />
+  <div class="flex align-items-center justify-content-around col-3">
+    <app-button
+      class="profile-btn"
+      [disabled]="false"
+      [label]="'Start Quiz'"
+      [borderRadius]="'20px'"
+      [padding]="'1rem 2rem'"
+      (buttonClicked)="startQuiz($event)"
+    ></app-button>
+    <p-avatar
+      image="/assets/images/profile-image.png"
+      shape="circle"
+      class="profile-image"
+    />
+  </div>
+</div>

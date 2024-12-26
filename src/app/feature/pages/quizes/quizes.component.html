@@ -1,0 +1,25 @@
+<app-profile [scrollTarget]="'quizes'"></app-profile>
+<cdk-virtual-scroll-viewport
+  id="quizes"
+  itemSize="292"
+  orientation="vertical"
+  (scrolledIndexChange)="onScrolled($event)"
+  [style]="{
+    minHeight: '100vh',
+    height: '100%',
+    width: '100%',
+    borderRadius: '1.5rem',
+    boxShadow: '0px 15px 40px rgba(0, 0, 0, 0.05)',
+    maxWidth: '66.44rem'
+  }"
+>
+  @if(errorMessage){
+  <div class="p-text-secondary block mb-5">{{ errorMessage }}</div>
+  }
+  <div
+    *cdkVirtualFor="let item of items; let i = index"
+    [class]="'col-12 sm:col-6 md:col-4'"
+  >
+    <app-quiz-card [quizSubject]="item"></app-quiz-card>
+  </div>
+</cdk-virtual-scroll-viewport>

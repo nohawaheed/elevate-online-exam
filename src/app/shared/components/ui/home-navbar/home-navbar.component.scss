@@ -1,0 +1,55 @@
+@import "variables.scss";
+@import "functions.scss";
+
+::ng-deep {
+  .p-menu {
+    border: none;
+    max-width: changeToRem(193px);
+  }
+  .p-menu-list {
+    .p-menuitem-text {
+      color: $text-color;
+    }
+    .p-menuitem-icon {
+      color: $main-color;
+    }
+    .p-menuitem-link-active {
+      background-color: $main-color !important;
+      border-radius: 10px;
+      .p-menuitem-icon {
+        color: #fff;
+      }
+      .p-menuitem-text {
+        color: #fff;
+      }
+    }
+    .p-menuitem-content {
+      max-width: changeToRem(193px);
+    }
+    .p-menuitem-link:hover,
+    .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus
+      > .p-menuitem-content {
+      background-color: $main-color;
+      max-width: changeToRem(193px);
+      border-radius: 10px;
+      .p-menuitem-text,
+      .p-menuitem-icon {
+        color: #fff;
+      }
+    }
+  }
+  .logo-image {
+    max-width: changeToRem(151px);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  ::ng-deep {
+    .p-menu {
+      max-width: unset !important;
+      border-radius: 0px;
+      padding: 1rem;
+      margin-top: 0.5rem !important;
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<div class="verify flex flex-column justify-content-center h-full">
+  <h2 class="mb-5 mt-0">Verify code</h2>
+  <p-toast position="top-center" />
+  <form [formGroup]="verifyForm" (ngSubmit)="submit()">
+    <div class="card flex w-full flex-column justify-content-center">
+      <input
+        class="w-full inter inter-500"
+        type="string"
+        placeholder="Enter Code"
+        [class.mb-5]="
+          !(
+            verifyForm.get('resetCode')?.errors &&
+            (verifyForm.get('resetCode')?.touched ||
+              verifyForm.get('resetCode')?.dirty)
+          )
+        "
+        [class]="'ng-invalid ng-dirty'"
+        pInputText
+        formControlName="resetCode"
+      />
+      @if(verifyForm.get('resetCode')?.errors &&
+      (verifyForm.get('resetCode')?.touched ||
+      verifyForm.get('resetCode')?.dirty)){
+      @if(verifyForm.get('resetCode')?.errors?.['pattern']){
+      <app-error-message
+        [message]="'Please enter a valid code'"
+      ></app-error-message>
+      }@else if(verifyForm.get('resetCode')?.errors?.['required']){
+      <app-error-message [message]="'Code is required'"></app-error-message>
+      } }
+      <p class="ml-auto m-0 verify-code poppins poppins-400">
+        Didn’t receive a code? @if(count > 0){<span class="verify-code-count"
+          >Resend in {{ count + "s" }} </span
+        >}@else{
+        <app-button
+          [label]="'Resend'"
+          [type]="'button'"
+          [width]="'fit-content'"
+          [loading]="resendLoading"
+          [disabled]="false"
+          (buttonClicked)="resendCode()"
+          [padding]="'0'"
+          [background]="'transparent'"
+          [color]="'#4461F2'"
+        ></app-button>
+        }
+      </p>
+      <app-button
+        label="Verify"
+        [type]="'submit'"
+        [loading]="verifyLoading"
+        [disabled]="!verifyForm.valid"
+      ></app-button>
+    </div>
+  </form>
+  <app-register-methods></app-register-methods>
+</div>

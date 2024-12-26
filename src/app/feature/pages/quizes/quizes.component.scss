@@ -1,0 +1,8 @@
+::ng-deep {
+  .cdk-virtual-scroll-content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 2rem 1rem;
+  }
+}

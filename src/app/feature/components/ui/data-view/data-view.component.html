@@ -1,0 +1,100 @@
+@if(component() === 'StartQuiz'){
+<app-profile [scrollTarget]="'startQuiz'"></app-profile>
+<div class="card" id="startQuiz">
+  <p-dataView
+    #dv
+    [value]="examData()"
+    [rows]="examData.length"
+    filterBy="name"
+    layout="list"
+  >
+    <ng-template pTemplate="listItem">
+      @for(exam of examData(); track exam._id){
+      <div
+        class="exam-container p-4 mb-4 flex flex-column md:flex-row align-items-center justify-content-center"
+      >
+        <div class="col-12 md:col-1 flex justify-content-center">
+          <p-skeleton shape="circle" size="4rem" />
+        </div>
+        <div
+          class="exam col-12 md:col-11 flex flex-column md:flex-row justify-content-between align-items-center"
+        >
+          <div class="exam-content inter flex-column">
+            <h1 class="exam-content_title inter-500 m-0 mb-1">
+              {{ exam.title }}
+            </h1>
+            <h2 class="exam-content_subtitle inter-400 m-0">
+              {{ exam.numberOfQuestions + " Question" }}
+            </h2>
+          </div>
+          <div class="exam-content inter inter-400 flex-column">
+            <div class="exam-content_duration mb-2">
+              {{ exam.duration + " Minutes" }}
+            </div>
+            <app-button
+              class="exam-content_button"
+              [disabled]="false"
+              [width]="'77px'"
+              [padding]="'4px 24px'"
+              [label]="'Start'"
+              [fontSize]="'12px'"
+              [loading]="loading()"
+              (buttonClicked)="getExamQuestions($event, exam._id)"
+            ></app-button>
+          </div>
+        </div>
+      </div>
+      }
+    </ng-template>
+  </p-dataView>
+</div>
+} @if(component() === 'QuizHistory'){
+<div class="card mt-4">
+  <p-dataView
+    #dv
+    [value]="historyData()"
+    [rows]="historyData.length"
+    filterBy="name"
+    layout="list"
+  >
+    <ng-template pTemplate="listItem">
+      @for(history of historyData(); track history._id){
+      <div
+        class="exam-container p-4 mb-4 flex flex-column md:flex-row align-items-center justify-content-center"
+      >
+        <div class="col-12 md:col-1 flex justify-content-center">
+          <p-skeleton shape="circle" size="4rem" />
+        </div>
+        <div
+          class="exam col-12 md:col-11 flex flex-column md:flex-row justify-content-between align-items-center"
+        >
+          <div class="exam-content inter flex-column">
+            <h1 class="exam-content_title inter-500 m-0 mb-1">
+              {{ examInfo()?.title }}
+            </h1>
+            <h2 class="exam-content_subtitle inter-400 m-0">
+              {{ examInfo()?.numberOfQuestions + " Question" }}
+            </h2>
+          </div>
+          <div class="exam-content inter inter-400 flex-column">
+            <div class="exam-content_duration mb-2">
+              {{ examInfo()?.duration + " Minutes" }}
+            </div>
+            <app-button
+              class="exam-content_button"
+              [disabled]="false"
+              [width]="'77px'"
+              [padding]="'4px 24px'"
+              [label]="'Answers'"
+              [fontSize]="'12px'"
+              [loading]="loading()"
+              (buttonClicked)="checkAnswers($event, history._id)"
+            ></app-button>
+          </div>
+        </div>
+      </div>
+      }
+    </ng-template>
+  </p-dataView>
+</div>
+}

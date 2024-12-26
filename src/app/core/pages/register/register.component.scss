@@ -1,0 +1,40 @@
+@import "variables.scss";
+
+.register {
+  max-width: 80%;
+  &-hasAccount {
+    cursor: pointer;
+    margin-bottom: 2.5em !important;
+    color: $black;
+    &_login {
+      color: $main-color;
+    }
+  }
+}
+::ng-deep {
+  .p-inputtext {
+    width: 100% !important;
+    font-family: $font-inter !important;
+    font-weight: $font-w-500 !important;
+  }
+}
+
+::ng-deep {
+  p-button {
+    ::ng-deep {
+      .p-button {
+        padding: 1rem 0rem;
+        .p-button-label {
+          font-family: $font-poppins !important;
+          font-weight: $font-w-400 !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .register {
+    max-width: unset;
+  }
+}
