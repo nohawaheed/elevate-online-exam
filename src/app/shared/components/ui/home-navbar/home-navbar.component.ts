@@ -1,5 +1,5 @@
 import { Component, HostListener, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -8,6 +8,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ButtonModule } from 'primeng/button';
+import { GoogleAuthService } from '../../../../core/services/google-auth.service';
 
 @Component({
   selector: 'app-home-navbar',
@@ -27,7 +28,8 @@ export class HomeNavbarComponent {
     private _ngxAuthApiService: NgxAuthApiService,
     private _authService: AuthService,
     private _messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private googleAuthService: GoogleAuthService
   ) {}
 
   items: MenuItem[] | undefined;
@@ -71,28 +73,29 @@ export class HomeNavbarComponent {
       this.showDialog.set(false);
     } else if (action === 'Ok') {
       this.showDialog.set(false);
-      this._ngxAuthApiService.logout().subscribe({
-        next: (res: LogoutResponse) => {
-          if (res.message === 'success') {
-            this._authService.logout();
-            this._messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: res.message,
-            });
-            setTimeout(() => {
-              this.router.navigate(['/login']);
-            }, 2000);
-          }
-        },
-        error: (err: ErrorMessage) => {
-          this._messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: err.error.message,
+      if (this.googleAuthService.getToken() !== null) {
+        this.googleAuthService.logout();
+        this.router.navigate(['/login']);
+      }
+      if (this._authService.isPlatformBrowser()) {
+        if (localStorage.getItem('token') || sessionStorage.getItem('token')) {
+          this._ngxAuthApiService.logout().subscribe({
+            next: (res: LogoutResponse) => {
+              if (res.message === 'success') {
+                this._authService.logout();
+                this.router.navigate(['/login']);
+              }
+            },
+            error: (err: ErrorMessage) => {
+              this._messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: err.error.message,
+              });
+            },
           });
-        },
-      });
+        }
+      }
     }
   }
 }

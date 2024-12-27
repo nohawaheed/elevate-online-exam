@@ -16,6 +16,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MessageService } from 'primeng/api';
 import { headerInterceptor } from './core/interceptors/header.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,5 +28,6 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimationsAsync(),
     MessageService,
+    provideOAuthClient(),
   ],
 };

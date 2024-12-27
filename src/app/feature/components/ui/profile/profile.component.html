@@ -15,7 +15,9 @@
       (buttonClicked)="startQuiz($event)"
     ></app-button>
     <p-avatar
-      image="/assets/images/profile-image.png"
+      image="{{
+        profileImage() ? profileImage() : '/assets/images/profile-image.png'
+      }}"
       shape="circle"
       class="profile-image"
     />

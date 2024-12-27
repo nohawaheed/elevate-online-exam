@@ -24,8 +24,14 @@ export class AuthService {
       if (localStorage.getItem('token')) {
         return localStorage.getItem('token');
       } else {
-        if (sessionStorage.getItem('token')) {
-          return sessionStorage.getItem('token');
+        if (
+          sessionStorage.getItem('token') ||
+          sessionStorage.getItem('id_token')
+        ) {
+          return (
+            sessionStorage.getItem('token') ||
+            sessionStorage.getItem('id_token')
+          );
         }
       }
     }
