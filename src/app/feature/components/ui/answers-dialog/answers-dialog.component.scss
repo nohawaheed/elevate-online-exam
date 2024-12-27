@@ -1,4 +1,15 @@
 .checkbox-container {
   padding: 1rem 0.5rem;
   border-radius: 0.63rem;
+  display: flex;
+  width: 100%;
+}
+
+.card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+.label {
+  word-break: break-word;
 }

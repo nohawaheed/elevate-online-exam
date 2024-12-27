@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, Signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ExamEndpoint } from '../enums/exam-endpoints';
 import { map, Observable } from 'rxjs';
@@ -8,11 +8,11 @@ import {
   AllExams,
   CheckQuestionsRequest,
   CheckQuestionsResponse,
-  Exam,
   ExamAdapted,
   ExamById,
   ExamHistory,
   ExamQuestions,
+  ExamScore,
 } from '../interfaces/exams';
 import { ExamAdapter } from '../../../pages/start-quiz/adapter/exam.adapter';
 
@@ -25,6 +25,8 @@ export class ExamService {
     private _subjectAdapter: SubjectAdapter,
     private _examAdapter: ExamAdapter
   ) {}
+
+  private _examResult = signal<ExamScore[] | null>(null);
 
   getSubjectsWithLimit(
     page: number,
@@ -71,5 +73,13 @@ export class ExamService {
     return this._httpClient
       .get(`${ExamEndpoint.GET_EXAM_BY_ID}${examId}`)
       .pipe(map((res) => res as ExamById));
+  }
+
+  setExamResult(ExamScore: ExamScore[]) {
+    this._examResult.set(ExamScore);
+  }
+
+  get getExamResult(): Signal<ExamScore[] | null> {
+    return this._examResult.asReadonly();
   }
 }

@@ -14,6 +14,7 @@ import {
   Question,
   AnsweredQuestions,
   CheckQuestionsRequest,
+  ExamScore,
 } from '../../business/interfaces/exams';
 import { AuthService } from '../../../../core/services/auth.service';
 import { map, Subject, takeUntil, takeWhile, timer } from 'rxjs';
@@ -25,6 +26,7 @@ import {
 } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { StepperModule } from 'primeng/stepper';
+import { ExamService } from '../../business/services/exam.service';
 
 @Component({
   selector: 'app-exam-dialog',
@@ -51,9 +53,13 @@ export class ExamDialogComponent implements OnInit, OnDestroy {
   examDuration = signal<string | null>(null);
   finalResult = output<CheckQuestionsRequest>();
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private examService: ExamService
+  ) {}
   questionsForm!: FormGroup;
-  answers = signal<AnsweredQuestions[]>([]);
+  userAnswers = signal<AnsweredQuestions[]>([]);
+  examAnswers = signal<ExamScore[]>([]);
   minutes = signal<number>(0);
   ngOnInit(): void {
     this.questionsForm = new FormGroup({
@@ -74,14 +80,23 @@ export class ExamDialogComponent implements OnInit, OnDestroy {
     // Initialize answers signal with all questions,
     // so that even if user didn't finish the exam all questions will be saved
     this.allExamQuestions().map((question) => {
-      this.answers().push({
+      this.userAnswers().push({
         questionId: question._id,
+      });
+      // only using to to display the wrong and correct answers till check api is ready
+      this.examAnswers().push({
+        QID: question._id,
+        Question: question.question,
+        correct: question.correct,
+        answers: question.answers,
       });
     });
   }
   saveSelectedAnswer() {
     // Save the selected answer in correct property in answers array
-    this.answers()[this.questionNumber()].correct = this.selectedAnswer;
+    this.userAnswers()[this.questionNumber()].correct = this.selectedAnswer;
+    this.examAnswers()[this.questionNumber()].selectedAnswer =
+      this.selectedAnswer;
   }
 
   emitAction(action: string) {
@@ -92,20 +107,21 @@ export class ExamDialogComponent implements OnInit, OnDestroy {
       //emit exam result if next is the last question
       if (this.allExamQuestions().length === this.questionNumber() + 1) {
         this.finalResult.emit({
-          answers: this.answers(),
+          answers: this.userAnswers(),
           time: this.examQuestion().exam.duration - this.minutes(),
         });
+        this.examService.setExamResult(this.examAnswers());
       } else {
         //to ensure that the selectedAnswer is not null when clicking next
         this.questionsForm
           .get('selectedAnswer')
-          ?.setValue(this.answers()[this.questionNumber() + 1].correct);
+          ?.setValue(this.userAnswers()[this.questionNumber() + 1].correct);
       }
     } else {
       //to ensure that the selectedAnswer is not null when clicking back
       this.questionsForm
         .get('selectedAnswer')
-        ?.setValue(this.answers()[this.questionNumber() - 1].correct);
+        ?.setValue(this.userAnswers()[this.questionNumber() - 1].correct);
     }
   }
 
@@ -128,7 +144,7 @@ export class ExamDialogComponent implements OnInit, OnDestroy {
           this.examDuration.set(res);
           if (res === '0s') {
             this.finalResult.emit({
-              answers: this.answers(),
+              answers: this.userAnswers(),
               time: this.examQuestion().exam.duration,
             });
           }

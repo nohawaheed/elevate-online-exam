@@ -1,7 +1,11 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal, Signal } from '@angular/core';
 import { DataViewComponent } from '../../components/ui/data-view/data-view.component';
 import { ExamService } from '../../components/business/services/exam.service';
-import { Exam, History } from '../../components/business/interfaces/exams';
+import {
+  Exam,
+  ExamScore,
+  History,
+} from '../../components/business/interfaces/exams';
 import { Subject, switchMap, take, takeUntil } from 'rxjs';
 import { AnswersDialogComponent } from '../../components/ui/answers-dialog/answers-dialog.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -20,8 +24,25 @@ export class QuizHistoryComponent implements OnInit, OnDestroy {
   showAnswersModal = signal<boolean>(false);
   loading = signal<boolean>(false);
   destroy$: Subject<boolean> = new Subject<boolean>();
+  examResultInfo = signal<ExamScore[] | null>(null);
 
   ngOnInit(): void {
+    this.getExamHistory();
+    this.showExamWrongAnswers();
+    if (this.examResultInfo()) {
+      this.showAnswersModal.set(true);
+    }
+  }
+
+  showAnswers(showAnswersDialog: boolean) {
+    this.showAnswersModal.set(showAnswersDialog);
+  }
+
+  showExamWrongAnswers() {
+    this.examResultInfo.set(this._examService.getExamResult());
+  }
+
+  getExamHistory() {
     this.loading.set(true);
     this._examService
       .getExamHistory()
@@ -40,10 +61,6 @@ export class QuizHistoryComponent implements OnInit, OnDestroy {
           }
         },
       });
-  }
-
-  showAnswers(showAnswersDialog: boolean) {
-    this.showAnswersModal.set(showAnswersDialog);
   }
 
   ngOnDestroy(): void {

@@ -112,3 +112,11 @@ export interface ExamById {
   message: string;
   exam: Exam;
 }
+
+export interface ExamScore {
+  QID: string;
+  Question: string;
+  correct: string;
+  selectedAnswer?: string;
+  answers: Answers[];
+}

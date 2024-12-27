@@ -1,3 +1,70 @@
+@if(examResult()){
+<p-dialog
+  [closeOnEscape]="false"
+  [modal]="true"
+  [closable]="false"
+  [draggable]="false"
+  [(visible)]="showDialog"
+  [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
+  [style]="{ width: '40rem' }"
+>
+  <div class="flex flex-wrap mb-3">
+    @for(question of examResult(); track question.QID){ @if(question.correct !==
+    question.selectedAnswer){
+    <div class="col-12 lg:col-6 p-3">
+      <div class="p-3 card">
+        <h4 class="subheader-text block m-0 mb-3 inter inter-500">
+          {{ question.Question }}
+        </h4>
+        @for(answer of question.answers; track answer.key){
+        <div class="flex flex-wrap mb-3">
+          <div
+            class="checkbox-container"
+            [style]="{
+              background:
+                question.selectedAnswer !== question.correct &&
+                answer.key === question.selectedAnswer
+                  ? '#CC1010'
+                  : answer.key === question.correct
+                  ? ' #CAF9CC'
+                  : '#EDEFF3',
+              borderColor:
+                question.selectedAnswer !== question.correct &&
+                answer.key === question.selectedAnswer
+                  ? '#CC1010'
+                  : answer.key === question.correct
+                  ? ' #CAF9CC'
+                  : '#EDEFF3'
+            }"
+          >
+            <input
+              type="radio"
+              [id]="question.QID"
+              [value]="question.selectedAnswer"
+              [checked]="question.selectedAnswer === answer.key"
+              [disabled]="question.selectedAnswer === answer.key ? false : true"
+            />
+            <label [for]="question.QID" class="ml-2 label">{{
+              answer.answer
+            }}</label>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    } }
+    <div class="flex justify-content-end align-self-end h-fit w-full gap-2">
+      <app-button
+        [disabled]="false"
+        [label]="'Close'"
+        (buttonClicked)="closeModal($event)"
+        [padding]="'0.5rem 6rem'"
+      >
+      </app-button>
+    </div>
+  </div>
+</p-dialog>
+}@else if (examHistory()) {
 <p-dialog
   [closeOnEscape]="false"
   [modal]="true"
@@ -59,3 +126,4 @@
     </app-button>
   </div>
 </p-dialog>
+}

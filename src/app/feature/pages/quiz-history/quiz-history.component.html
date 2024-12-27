@@ -17,6 +17,7 @@
 } @if(showAnswersModal()){
 <app-answers-dialog
   [(showDialog)]="showAnswersModal"
+  [examResult]="examResultInfo()"
   [examHistory]="history()"
 ></app-answers-dialog>
 }

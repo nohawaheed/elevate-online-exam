@@ -20,11 +20,18 @@ import { ExamService } from '../../business/services/exam.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { PercentageFormatPipe } from '../../business/pipe/percentage-format.pipe';
 
 @Component({
   selector: 'app-result-dialog',
   standalone: true,
-  imports: [DialogModule, ButtonModule, ChartModule, ProgressSpinnerModule],
+  imports: [
+    DialogModule,
+    ButtonModule,
+    ChartModule,
+    ProgressSpinnerModule,
+    PercentageFormatPipe,
+  ],
   templateUrl: './result-dialog.component.html',
   styleUrl: './result-dialog.component.scss',
 })

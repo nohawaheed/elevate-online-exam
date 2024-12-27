@@ -1,6 +1,6 @@
-import { Component, input, InputSignal, model } from '@angular/core';
+import { Component, input, InputSignal, model, OnInit } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { History } from '../../business/interfaces/exams';
+import { ExamScore, History } from '../../business/interfaces/exams';
 import { ButtonComponent } from '../../../../shared/components/ui/button/button.component';
 
 @Component({
@@ -12,7 +12,8 @@ import { ButtonComponent } from '../../../../shared/components/ui/button/button.
 })
 export class AnswersDialogComponent {
   showDialog = model(false);
-  examHistory: InputSignal<History[]> = input.required();
+  examResult: InputSignal<ExamScore[] | null> = input.required();
+  examHistory: InputSignal<History[] | null> = input.required();
 
   closeModal(clicked: boolean) {
     if (clicked) {
