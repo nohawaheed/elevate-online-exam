@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
-import { environment } from './../../../environments/environment';
+import { environment } from './../../../environments/environment.development';
 import { AuthService } from './auth.service';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +9,7 @@ import { Router } from '@angular/router';
 export class GoogleAuthService {
   constructor(
     private _oAuthService: OAuthService,
-    private authService: AuthService,
-    private _router: Router
+    private authService: AuthService
   ) {
     this.authService.isPlatformBrowser() && this.initConfig();
   }
