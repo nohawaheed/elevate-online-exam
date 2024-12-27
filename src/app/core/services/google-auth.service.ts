@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AuthConfig, OAuthErrorEvent, OAuthService } from 'angular-oauth2-oidc';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { environment } from './../../../environments/environment';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
