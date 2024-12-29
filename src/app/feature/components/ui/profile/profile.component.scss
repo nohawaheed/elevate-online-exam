@@ -5,10 +5,12 @@
   max-width: 66.44rem;
 
   &-search {
-    border-radius: changeToRem(20px);
     background-color: #fff;
     color: $text-color;
-    padding: 1rem;
+    &_input {
+      border-radius: changeToRem(20px);
+      padding: 1rem;
+    }
   }
   ::ng-deep {
     .p-avatar {
