@@ -13,3 +13,7 @@
 .label {
   word-break: break-word;
 }
+
+input[type="radio"]:checked {
+  accent-color: #cc1010;
+}
